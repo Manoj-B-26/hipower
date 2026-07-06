@@ -1,0 +1,124 @@
+/* ============================================
+   Modern CSS Reset — Liquid Glass LIGHT Edition
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-gutter: stable;
+}
+
+body {
+  min-height: 100vh;
+  line-height: var(--lh-normal);
+  font-family: var(--font-primary);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  background: var(--scene-bg);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Light gradient background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--scene-gradient);
+}
+
+/* Soft pastel ambient orbs on light canvas */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 600px 600px at 10% 15%, rgba(124, 58, 237, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 90% 20%, rgba(37, 99, 235, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 700px at 50% 85%, rgba(224, 36, 62, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 80% 75%, rgba(8, 145, 178, 0.05) 0%, transparent 70%);
+  animation: ambientFloat 20s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes ambientFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-20px, 15px) scale(1.02); }
+  66% { transform: translate(15px, -10px) scale(0.98); }
+  100% { transform: translate(-10px, 20px) scale(1.01); }
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  line-height: var(--lh-tight);
+  font-weight: var(--fw-bold);
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+::selection {
+  background-color: rgba(224, 36, 62, 0.2);
+  color: var(--text-primary);
+}
+
+/* ---- Scrollbar — Light Glass ---- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.02);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}

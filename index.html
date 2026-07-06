@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HiPower Systems & Services — Powering India's Critical Infrastructure</title>
+  <meta name="description" content="HIPOWER is an ISO-certified company with 20+ years of experience in Power Management, Cooling Management, and IT Infrastructure Management across India." />
+  <meta property="og:title" content="HiPower Systems & Services" />
+  <meta property="og:description" content="Powering India's Critical Infrastructure for 20+ Years. Power, Thermal & IT Infra Management Solutions." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hipower.in/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/css/variables.css" />
+  <link rel="stylesheet" href="/src/css/reset.css" />
+  <link rel="stylesheet" href="/src/css/base.css" />
+  <link rel="stylesheet" href="/src/css/layout.css" />
+  <link rel="stylesheet" href="/src/css/animations.css" />
+  <link rel="stylesheet" href="/src/css/components.css" />
+  <script type="module" src="/src/js/main.js"></script>
+  <link rel="icon" type="image/png" href="/images/hipower-logo.png" />
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <script>
+      if (sessionStorage.getItem('hasLoadedBefore')) {
+        document.getElementById('preloader').style.display = 'none';
+      }
+    </script>
+    <div class="preloader-wrapper">
+      <div class="preloader-spinner"></div>
+      <img src="/images/hipower-logo.png" alt="Loading..." class="preloader-logo" />
+    </div>
+  </div>
+
+  <!-- ========== FLOATING GLASS NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <img src="/images/hipower-logo.png" alt="HiPower Systems & Services" class="brand-logo" />
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="products.html">Products</a>
+        <a href="services.html">Services</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html" class="nav-cta">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- ========== HERO — LIQUID GLASS ========== -->
+  <section class="hero" id="hero">
+    <!-- Animated glass orbs background -->
+    <div class="hero-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-split-layout">
+        
+        <!-- Left Side: Typography & CTAs -->
+        <div class="hero-text-side">
+          <div class="hero-badge animate-fade-down">
+            <span class="dot"></span>
+            ISO 9001:2015 Certified
+          </div>
+          <h1 class="animate-fade-up">
+            Powering India's<br />
+            <span class="highlight">Critical Infrastructure</span>
+          </h1>
+          <p class="hero-subtitle animate-fade-up delay-2">
+            Authorized partner for enterprise Power, Thermal, and IT Infrastructure Solutions. Over 20+ years of trusted engineering excellence.
+          </p>
+          <div class="hero-actions animate-fade-up delay-3">
+            <a href="products.html" class="btn btn-primary">
+              <span class="btn-icon">⚡</span> Our Catalog
+            </a>
+            <a href="contact.html" class="btn btn-outline">
+              <span class="btn-icon">📞</span> Get a Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side: Animated Product Catalog Shelf -->
+        <div class="hero-catalog-side animate-fade-in delay-2">
+          <div class="catalog-showcase">
+            <!-- Row 1: Sliding Left -->
+            <div class="catalog-row">
+              <div class="catalog-track">
+                <!-- Card 1 -->
+                <div class="catalog-card" onclick="window.location.href='products.html#power'">
+                  <div class="catalog-badge">UPS Systems</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-power.png" alt="Modular UPS Systems" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Modular UPS Systems</h3>
+                    <p>Liebert EXS / APM modular power backup solutions.</p>
+                  </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="catalog-card" onclick="window.location.href='products.html#thermal'">
+                  <div class="catalog-badge">Thermal</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-thermal.png" alt="Precision Air Conditioning" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Precision Cooling</h3>
+                    <p>Liebert SRC / CRV precision air cooling systems.</p>
+                  </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="catalog-card" onclick="window.location.href='products.html#itinfra'">
+                  <div class="catalog-badge">IT Infra</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-itinfra.png" alt="SmartCabin Server Racks" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>SmartCabin Enclosures</h3>
+                    <p>Integrated rack cabinets, PDUs, and environmental control.</p>
+                  </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="catalog-card" onclick="window.location.href='services.html'">
+                  <div class="catalog-badge">Services</div>
+                  <div class="catalog-image">
+                    <img src="/images/service-maintenance.png" alt="Electrical Maintenance AMC" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Maintenance & AMC</h3>
+                    <p>24/7 preventive electrical maintenance and support.</p>
+                  </div>
+                </div>
+                <!-- Clone Row 1 for Infinite Loop -->
+                <!-- Card 1 Clone -->
+                <div class="catalog-card" onclick="window.location.href='products.html#power'">
+                  <div class="catalog-badge">UPS Systems</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-power.png" alt="Modular UPS Systems" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Modular UPS Systems</h3>
+                    <p>Liebert EXS / APM modular power backup solutions.</p>
+                  </div>
+                </div>
+                <!-- Card 2 Clone -->
+                <div class="catalog-card" onclick="window.location.href='products.html#thermal'">
+                  <div class="catalog-badge">Thermal</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-thermal.png" alt="Precision Air Conditioning" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Precision Cooling</h3>
+                    <p>Liebert SRC / CRV precision air cooling systems.</p>
+                  </div>
+                </div>
+                <!-- Card 3 Clone -->
+                <div class="catalog-card" onclick="window.location.href='products.html#itinfra'">
+                  <div class="catalog-badge">IT Infra</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-itinfra.png" alt="SmartCabin Server Racks" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>SmartCabin Enclosures</h3>
+                    <p>Integrated rack cabinets, PDUs, and environmental control.</p>
+                  </div>
+                </div>
+                <!-- Card 4 Clone -->
+                <div class="catalog-card" onclick="window.location.href='services.html'">
+                  <div class="catalog-badge">Services</div>
+                  <div class="catalog-image">
+                    <img src="/images/service-maintenance.png" alt="Electrical Maintenance AMC" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Maintenance & AMC</h3>
+                    <p>24/7 preventive electrical maintenance and support.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: Sliding Right -->
+            <div class="catalog-row reverse">
+              <div class="catalog-track">
+                <!-- Card 3 -->
+                <div class="catalog-card" onclick="window.location.href='products.html#itinfra'">
+                  <div class="catalog-badge">IT Infra</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-itinfra.png" alt="SmartCabin Server Racks" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>SmartCabin Enclosures</h3>
+                    <p>Integrated rack cabinets, PDUs, and environmental control.</p>
+                  </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="catalog-card" onclick="window.location.href='services.html'">
+                  <div class="catalog-badge">Services</div>
+                  <div class="catalog-image">
+                    <img src="/images/service-maintenance.png" alt="Electrical Maintenance AMC" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Maintenance & AMC</h3>
+                    <p>24/7 preventive electrical maintenance and support.</p>
+                  </div>
+                </div>
+                <!-- Card 1 -->
+                <div class="catalog-card" onclick="window.location.href='products.html#power'">
+                  <div class="catalog-badge">UPS Systems</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-power.png" alt="Modular UPS Systems" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Modular UPS Systems</h3>
+                    <p>Liebert EXS / APM modular power backup solutions.</p>
+                  </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="catalog-card" onclick="window.location.href='products.html#thermal'">
+                  <div class="catalog-badge">Thermal</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-thermal.png" alt="Precision Air Conditioning" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Precision Cooling</h3>
+                    <p>Liebert SRC / CRV precision air cooling systems.</p>
+                  </div>
+                </div>
+                <!-- Clone Row 2 for Infinite Loop -->
+                <!-- Card 3 Clone -->
+                <div class="catalog-card" onclick="window.location.href='products.html#itinfra'">
+                  <div class="catalog-badge">IT Infra</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-itinfra.png" alt="SmartCabin Server Racks" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>SmartCabin Enclosures</h3>
+                    <p>Integrated rack cabinets, PDUs, and environmental control.</p>
+                  </div>
+                </div>
+                <!-- Card 4 Clone -->
+                <div class="catalog-card" onclick="window.location.href='services.html'">
+                  <div class="catalog-badge">Services</div>
+                  <div class="catalog-image">
+                    <img src="/images/service-maintenance.png" alt="Electrical Maintenance AMC" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Maintenance & AMC</h3>
+                    <p>24/7 preventive electrical maintenance and support.</p>
+                  </div>
+                </div>
+                <!-- Card 1 Clone -->
+                <div class="catalog-card" onclick="window.location.href='products.html#power'">
+                  <div class="catalog-badge">UPS Systems</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-power.png" alt="Modular UPS Systems" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Modular UPS Systems</h3>
+                    <p>Liebert EXS / APM modular power backup solutions.</p>
+                  </div>
+                </div>
+                <!-- Card 2 Clone -->
+                <div class="catalog-card" onclick="window.location.href='products.html#thermal'">
+                  <div class="catalog-badge">Thermal</div>
+                  <div class="catalog-image">
+                    <img src="/images/product-thermal.png" alt="Precision Air Conditioning" loading="lazy" />
+                  </div>
+                  <div class="catalog-details">
+                    <h3>Precision Cooling</h3>
+                    <p>Liebert SRC / CRV precision air cooling systems.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== STATS BAR — GLASS ========== -->
+  <section class="stats-bar section-sm" id="stats">
+    <div class="container">
+      <div class="grid grid-4">
+        <div class="stat-item reveal">
+          <div class="stat-number" data-counter="20" data-suffix="+">0+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item reveal delay-1">
+          <div class="stat-number" data-counter="500" data-suffix="+">0+</div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div class="stat-item reveal delay-2">
+          <div class="stat-number" data-counter="50" data-suffix="+">0+</div>
+          <div class="stat-label">Cities Covered</div>
+        </div>
+        <div class="stat-item reveal delay-3">
+          <div class="stat-number" data-counter="1000" data-suffix="+">0+</div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHAT WE DO — GLASS CARDS ========== -->
+  <section class="section section-glass" id="what-we-do">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">What We Do</span>
+        <h2>Comprehensive Infrastructure Solutions</h2>
+        <p>From power protection to thermal management, we deliver end-to-end solutions for India's most critical facilities.</p>
+      </div>
+      <div class="grid grid-3">
+        <!-- Power -->
+        <div class="card reveal">
+          <div class="card-icon" style="background: var(--accent-soft); border-color: rgba(255,59,92,0.15);">⚡</div>
+          <div class="badge badge-accent mb-md">Power</div>
+          <h3>Power Management</h3>
+          <p>UPS Systems, Voltage Stabilizers, Inverters, and Servo Stabilizers for uninterrupted power supply to critical operations.</p>
+          <a href="products.html" class="link" style="display:inline-block; margin-top: var(--space-md); font-size: var(--fs-sm); font-weight: var(--fw-semibold);">Learn More →</a>
+        </div>
+        <!-- Thermal -->
+        <div class="card reveal delay-2">
+          <div class="card-icon" style="background: var(--blue-soft); color: var(--blue); border-color: rgba(59,130,255,0.15);">❄️</div>
+          <div class="badge badge-gold mb-md">Thermal</div>
+          <h3>Thermal Management</h3>
+          <p>Precision Air Conditioning (PAC), close control units, and advanced cooling solutions for data centers and server rooms.</p>
+          <a href="products.html" class="link" style="display:inline-block; margin-top: var(--space-md); font-size: var(--fs-sm); font-weight: var(--fw-semibold);">Learn More →</a>
+        </div>
+        <!-- IT Infra -->
+        <div class="card reveal delay-4">
+          <div class="card-icon" style="background: var(--gold-soft); color: var(--gold); border-color: rgba(212,160,23,0.15);">🖥️</div>
+          <div class="badge" style="background: var(--gold-soft); color: var(--gold-glow); border: 1px solid rgba(212,160,23,0.2);">IT Infra</div>
+          <h3 style="margin-top: var(--space-md);">IT Infra Management</h3>
+          <p>Server Racks, Cable Management, Environmental Monitoring, and complete data center infrastructure solutions.</p>
+          <a href="products.html" class="link" style="display:inline-block; margin-top: var(--space-md); font-size: var(--fs-sm); font-weight: var(--fw-semibold);">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY CHOOSE US — GLASS FEATURES ========== -->
+  <section class="section section-glass" id="why-us">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Why HiPower</span>
+        <h2>Your Trusted Power Partner</h2>
+        <p>Two decades of engineering excellence, serving industries from healthcare to space research.</p>
+      </div>
+      <div class="grid grid-4">
+        <div class="feature-glass reveal">
+          <div class="feature-icon" style="background: var(--accent-soft); color: var(--accent-bright); border: 1px solid rgba(255,59,92,0.15);">🏆</div>
+          <h3 style="font-size: var(--fs-lg); margin-bottom: var(--space-sm);">ISO Certified</h3>
+          <p>ISO 9001:2015 certified processes ensuring world-class quality and reliability.</p>
+        </div>
+        <div class="feature-glass reveal delay-1">
+          <div class="feature-icon" style="background: var(--blue-soft); color: var(--blue); border: 1px solid rgba(59,130,255,0.15);">🔧</div>
+          <h3 style="font-size: var(--fs-lg); margin-bottom: var(--space-sm);">20+ Years</h3>
+          <p>Decades of hands-on experience in power and infrastructure management.</p>
+        </div>
+        <div class="feature-glass reveal delay-2">
+          <div class="feature-icon" style="background: var(--cyan-soft); color: var(--cyan); border: 1px solid rgba(34,211,238,0.15);">🌍</div>
+          <h3 style="font-size: var(--fs-lg); margin-bottom: var(--space-sm);">Pan-India Network</h3>
+          <p>Service coverage across 50+ cities with rapid response teams.</p>
+        </div>
+        <div class="feature-glass reveal delay-3">
+          <div class="feature-icon" style="background: var(--gold-soft); color: var(--gold); border: 1px solid rgba(212,160,23,0.15);">⏰</div>
+          <h3 style="font-size: var(--fs-lg); margin-bottom: var(--space-sm);">24/7 Support</h3>
+          <p>Round-the-clock technical support and emergency service response.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INDUSTRIES SERVED — GLASS PILLS ========== -->
+  <section class="section section-glass" id="industries">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Industries We Serve</span>
+        <h2>Trusted Across Sectors</h2>
+        <p>Delivering critical infrastructure solutions to India's most demanding industries.</p>
+      </div>
+      <div class="grid grid-4 reveal">
+        <div class="industry-pill">
+          <span class="pill-icon">🏥</span>
+          <h4>Healthcare</h4>
+        </div>
+        <div class="industry-pill">
+          <span class="pill-icon" style="animation-delay: 0.5s;">💻</span>
+          <h4>Information Technology</h4>
+        </div>
+        <div class="industry-pill">
+          <span class="pill-icon" style="animation-delay: 1s;">🏦</span>
+          <h4>Banking & Finance</h4>
+        </div>
+        <div class="industry-pill">
+          <span class="pill-icon" style="animation-delay: 1.5s;">🏭</span>
+          <h4>Manufacturing</h4>
+        </div>
+        <div class="industry-pill">
+          <span class="pill-icon" style="animation-delay: 2s;">💊</span>
+          <h4>Pharma</h4>
+        </div>
+        <div class="industry-pill">
+          <span class="pill-icon" style="animation-delay: 2.5s;">⚡</span>
+          <h4>Energy</h4>
+        </div>
+        <div class="industry-pill">
+          <span class="pill-icon" style="animation-delay: 3s;">🚀</span>
+          <h4>Space Research</h4>
+        </div>
+        <div class="industry-pill">
+          <span class="pill-icon" style="animation-delay: 3.5s;">☢️</span>
+          <h4>Atomic Power</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUSTED BY / CLIENT LOGOS — GLASS ========== -->
+  <section class="section-sm section-glass" style="padding: var(--space-3xl) 0;">
+    <div class="container">
+      <p class="text-center text-muted text-uppercase" style="font-size: var(--fs-xs); letter-spacing: 0.18em; margin-bottom: var(--space-2xl);">Trusted by Leading Organizations</p>
+      <div class="client-logos reveal">
+        <span class="client-logo-item">TATA</span>
+        <span class="client-logo-item">BIAL</span>
+        <span class="client-logo-item">ABB</span>
+        <span class="client-logo-item">GAIL</span>
+        <span class="client-logo-item">VERTIV</span>
+        <span class="client-logo-item">HAL</span>
+        <span class="client-logo-item">ISRO</span>
+        <span class="client-logo-item">BHEL</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA BANNER — LIQUID GLASS ========== -->
+  <section class="section section-glass">
+    <div class="container">
+      <div class="cta-banner reveal-scale">
+        <h2>Ready to Power Your Business?</h2>
+        <p>Get a free consultation and power audit for your facility.</p>
+        <a href="contact.html" class="btn btn-gold">
+          <span class="btn-icon">📋</span> Request a Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER — GLASS ========== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand" style="font-size: var(--fs-lg);">
+            <img src="/images/hipower-logo.png" alt="HiPower" class="brand-logo" style="height: 36px;" />
+          </a>
+          <p>ISO-certified experts in Power, Thermal & IT Infrastructure Management. Serving India's critical infrastructure for 20+ years.</p>
+        </div>
+        <!-- Quick Links -->
+        <div>
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="products.html">Products</a>
+            <a href="services.html">Services</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <!-- Services -->
+        <div>
+          <h4>Services</h4>
+          <div class="footer-links">
+            <a href="services.html">AMC — UPS & Stabilizer</a>
+            <a href="services.html">Power Quality Audit</a>
+            <a href="services.html">Thermography</a>
+            <a href="services.html">Electrical Maintenance</a>
+            <a href="services.html">Rental Services</a>
+          </div>
+        </div>
+        <!-- Contact -->
+        <div>
+          <h4>Contact Us</h4>
+          <div class="footer-contact-item">
+            <span class="icon">📍</span>
+            <span>#30, 3rd Main, Industrial Suburb,<br />Peenya 2nd Stage, Bengaluru – 560058</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">📞</span>
+            <a href="tel:+918028396777">+91 80 2839 6777</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">✉️</span>
+            <a href="mailto:info@hipower.in">info@hipower.in</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 HiPower Systems & Services. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Twitter">𝕏</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/918028396777" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+</body>
+</html>

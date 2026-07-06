@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — HiPower Systems & Services</title>
+  <meta name="description" content="Explore HiPower's range of products: UPS Systems, Voltage Stabilizers, Precision Air Conditioning, Server Racks, and IT Infrastructure solutions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/css/variables.css" />
+  <link rel="stylesheet" href="/src/css/reset.css" />
+  <link rel="stylesheet" href="/src/css/base.css" />
+  <link rel="stylesheet" href="/src/css/layout.css" />
+  <link rel="stylesheet" href="/src/css/animations.css" />
+  <link rel="stylesheet" href="/src/css/components.css" />
+  <script type="module" src="/src/js/main.js"></script>
+  <link rel="icon" type="image/png" href="/images/hipower-logo.png" />
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <script>
+      if (sessionStorage.getItem('hasLoadedBefore')) {
+        document.getElementById('preloader').style.display = 'none';
+      }
+    </script>
+    <div class="preloader-wrapper">
+      <div class="preloader-spinner"></div>
+      <img src="/images/hipower-logo.png" alt="Loading..." class="preloader-logo" />
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <img src="/images/hipower-logo.png" alt="HiPower Systems & Services" class="brand-logo" />
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="products.html">Products</a>
+        <a href="services.html">Services</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html" class="nav-cta">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- HERO -->
+  <section class="hero hero-inner">
+    <div class="hero-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-down">
+          <span class="dot"></span> Vertiv Authorized Partner
+        </div>
+        <h1 class="animate-fade-up">Our <span class="highlight">Products</span></h1>
+        <p class="hero-subtitle animate-fade-up delay-2">World-class power, thermal, and IT infrastructure solutions built for reliability and performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POWER MANAGEMENT -->
+  <section class="section section-glass" id="power">
+    <div class="container">
+      <div class="grid grid-2 items-center gap-3xl product-layout">
+        <div class="reveal-left">
+          <div class="badge badge-accent mb-lg">Power Management</div>
+          <h2 style="color: var(--blue); margin-bottom: var(--space-lg);">Uninterruptible Power Solutions</h2>
+          <p style="margin-bottom: var(--space-lg);">
+            We supply and service a complete range of power protection equipment designed to keep your critical operations running without interruption. From small office UPS to large industrial power systems.
+          </p>
+          <div class="grid grid-2 grid-2-mobile gap-md mb-xl">
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">⚡ UPS Systems</h4>
+              <p style="font-size: var(--fs-xs);">Online, Line-Interactive & Modular UPS from 1kVA to 800kVA</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🔌 Stabilizers</h4>
+              <p style="font-size: var(--fs-xs);">Servo & Static Voltage Stabilizers for industrial applications</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🔋 Batteries</h4>
+              <p style="font-size: var(--fs-xs);">SMF, Tubular & Lithium-ion battery solutions</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">📊 Monitoring</h4>
+              <p style="font-size: var(--fs-xs);">Remote power monitoring & management systems</p>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Request Quote</a>
+        </div>
+          <div class="card" style="padding: var(--space-3xl); text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: var(--space-lg);">⚡</div>
+            <h3 style="margin-bottom: var(--space-md);">Power Management</h3>
+            <p>Enterprise-grade UPS, stabilizers, and battery solutions for zero-downtime operations.</p>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THERMAL MANAGEMENT -->
+  <section class="section section-glass" id="thermal">
+    <div class="container">
+      <div class="grid grid-2 items-center gap-3xl product-layout">
+        <div class="reveal-left order-2-desktop">
+          <div class="badge badge-gold mb-lg">Thermal Management</div>
+          <h2 style="color: var(--blue); margin-bottom: var(--space-lg);">Precision Cooling Solutions</h2>
+          <p style="margin-bottom: var(--space-lg);">
+            Mission-critical environments demand precise temperature and humidity control. Our thermal management solutions ensure optimal conditions for servers, equipment, and processes.
+          </p>
+          <div class="grid grid-2 grid-2-mobile gap-md mb-xl">
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--secondary-glow); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">❄️ PAC Systems</h4>
+              <p style="font-size: var(--fs-xs);">Precision Air Conditioning for data centers</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--secondary-glow); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🌡️ Close Control</h4>
+              <p style="font-size: var(--fs-xs);">Close Control Units for critical environments</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--secondary-glow); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🔄 Chillers</h4>
+              <p style="font-size: var(--fs-xs);">Industrial chiller solutions for process cooling</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--secondary-glow); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">📡 Monitoring</h4>
+              <p style="font-size: var(--fs-xs);">Environmental monitoring & alerts</p>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Request Quote</a>
+        </div>
+          <div class="card" style="padding: var(--space-3xl); text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: var(--space-lg);">❄️</div>
+            <h3 style="margin-bottom: var(--space-md);">Thermal Management</h3>
+            <p>Precision cooling solutions engineered for data centers and critical infrastructure.</p>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IT INFRA MANAGEMENT -->
+  <section class="section section-glass" id="itinfra">
+    <div class="container">
+      <div class="grid grid-2 items-center gap-3xl product-layout">
+        <div class="reveal-left">
+          <div class="badge badge-accent mb-lg">IT Infrastructure</div>
+          <h2 style="color: var(--blue); margin-bottom: var(--space-lg);">Complete Data Center Solutions</h2>
+          <p style="margin-bottom: var(--space-lg);">
+            End-to-end IT infrastructure management — from server racks and cable management to environmental monitoring and access control systems.
+          </p>
+          <div class="grid grid-2 grid-2-mobile gap-md mb-xl">
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🗄️ Server Racks</h4>
+              <p style="font-size: var(--fs-xs);">Standard & custom racks with cable management</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🔗 Structured Cabling</h4>
+              <p style="font-size: var(--fs-xs);">Cat6/Cat6A, fiber optic cabling solutions</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🖥️ KVM Solutions</h4>
+              <p style="font-size: var(--fs-xs);">KVM switches and remote management tools</p>
+            </div>
+            <div style="padding: var(--space-md); background: rgba(255,255,255,0.04); backdrop-filter: blur(10px); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);">
+              <h4 style="color: var(--accent); font-size: var(--fs-sm); margin-bottom: var(--space-xs);">🔒 Access Control</h4>
+              <p style="font-size: var(--fs-xs);">Biometric & card-based data center access</p>
+            </div>
+          </div>
+          <a href="contact.html" class="btn btn-primary">Request Quote</a>
+        </div>
+          <div class="card" style="padding: var(--space-3xl); text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: var(--space-lg);">🖥️</div>
+            <h3 style="margin-bottom: var(--space-md);">IT Infrastructure</h3>
+            <p>Complete data center solutions from racks to structured cabling and access control.</p>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERTIV PARTNERSHIP -->
+  <section class="section-sm section-glass" style="padding: var(--space-3xl) 0;">
+    <div class="container text-center">
+      <p class="text-muted text-uppercase reveal" style="font-size: var(--fs-xs); letter-spacing: 0.15em; margin-bottom: var(--space-md);">Technology Partner</p>
+      <h3 class="reveal" style="color: var(--blue); margin-bottom: var(--space-md);">Authorized <span style="color: var(--accent);">Vertiv</span> Partner</h3>
+      <p class="reveal" style="max-width: 600px; margin: 0 auto;">We are proud to be an authorized channel partner for Vertiv (formerly Emerson Network Power), offering their complete range of critical infrastructure solutions.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-glass">
+    <div class="container">
+      <div class="cta-banner reveal-scale">
+        <h2>Need a Custom Solution?</h2>
+        <p>Our engineers will design the perfect power & infrastructure solution for your needs.</p>
+        <a href="contact.html" class="btn btn-gold">
+          <span class="btn-icon">📋</span> Request Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand" style="font-size: var(--fs-lg);">
+            <img src="/images/hipower-logo.png" alt="HiPower" class="brand-logo" style="height: 36px;" />
+          </a>
+          <p>ISO-certified experts in Power, Thermal & IT Infrastructure Management. Serving India's critical infrastructure for 20+ years.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="products.html">Products</a>
+            <a href="services.html">Services</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <div class="footer-links">
+            <a href="services.html">AMC — UPS & Stabilizer</a>
+            <a href="services.html">Power Quality Audit</a>
+            <a href="services.html">Thermography</a>
+            <a href="services.html">Electrical Maintenance</a>
+            <a href="services.html">Rental Services</a>
+          </div>
+        </div>
+        <div>
+          <h4>Contact Us</h4>
+          <div class="footer-contact-item">
+            <span class="icon">📍</span>
+            <span>#30, 3rd Main, Industrial Suburb,<br />Peenya 2nd Stage, Bengaluru – 560058</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">📞</span>
+            <a href="tel:+918028396777">+91 80 2839 6777</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">✉️</span>
+            <a href="mailto:info@hipower.in">info@hipower.in</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 HiPower Systems & Services. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Twitter">𝕏</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/918028396777" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+
+
+</body>
+</html>

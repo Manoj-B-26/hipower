@@ -1,0 +1,175 @@
+/* ============================================
+   HiPower Design System — Light Glass
+   Red + Blue logo colors with Gold/Yellow accents
+   ============================================ */
+:root {
+  /* ---- Light Scene Background ---- */
+  --scene-bg: #f4f2ed;
+  --scene-gradient: linear-gradient(135deg, #f4f2ed 0%, #eee9df 25%, #f0ebe0 50%, #eae4d8 75%, #f4f2ed 100%);
+
+  /* ---- Liquid Glass on Light ---- */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-bg-card: rgba(255, 255, 255, 0.45);
+  --glass-bg-hover: rgba(255, 255, 255, 0.65);
+  --glass-bg-nav: rgba(255, 255, 255, 0.6);
+  --glass-bg-footer: rgba(255, 255, 255, 0.5);
+
+  /* ---- Brand Colors (from Logo) ---- */
+  --accent: #E12D39;
+  --accent-glow: #FF3B4F;
+  --accent-soft: rgba(225, 45, 57, 0.1);
+  --accent-hover: #C41D2E;
+  --accent-bright: #E12D39;
+
+  --blue: #2B7DE9;
+  --blue-glow: #4A94F5;
+  --blue-soft: rgba(43, 125, 233, 0.1);
+
+  /* ---- Gold / Yellow Accents ---- */
+  --gold: #D4A017;
+  --gold-glow: #F5A623;
+  --gold-bright: #FFB829;
+  --gold-soft: rgba(212, 160, 23, 0.12);
+
+  --cyan: #0891b2;
+  --cyan-glow: #06b6d4;
+  --cyan-soft: rgba(8, 145, 178, 0.08);
+
+  --purple: #7c3aed;
+  --purple-glow: #8b5cf6;
+  --purple-soft: rgba(124, 58, 237, 0.08);
+
+  --teal: #0d9488;
+  --emerald: #059669;
+  --amber: #d97706;
+  --rose: #e11d48;
+
+  /* ---- Text — DARK on light glass ---- */
+  --text-primary: #1a1a2e;
+  --text-secondary: rgba(26, 26, 46, 0.65);
+  --text-muted: rgba(26, 26, 46, 0.4);
+  --text-on-glass: #1a1a2e;
+  --text-accent: var(--accent);
+
+  /* ---- Borders on light ---- */
+  --border-glass: rgba(0, 0, 0, 0.07);
+  --border-glass-strong: rgba(0, 0, 0, 0.12);
+  --border-accent: rgba(225, 45, 57, 0.25);
+  --border-glow: rgba(43, 125, 233, 0.2);
+  --border-gold: rgba(212, 160, 23, 0.3);
+
+  /* ---- Glass Surface Layers (light) ---- */
+  --surface-0: rgba(255, 255, 255, 0.3);
+  --surface-1: rgba(255, 255, 255, 0.5);
+  --surface-2: rgba(255, 255, 255, 0.65);
+  --surface-3: rgba(255, 255, 255, 0.8);
+
+  /* ---- Typography ---- */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --fs-3xl: 2.5rem;
+  --fs-4xl: 3rem;
+  --fs-5xl: 3.75rem;
+  --fs-hero: clamp(2.75rem, 6vw, 5rem);
+
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --fw-black: 900;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-normal: 1.6;
+  --lh-relaxed: 1.75;
+
+  /* ---- Spacing ---- */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+
+  /* ---- Radius ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+  --radius-full: 50%;
+  --radius-pill: 9999px;
+
+  /* ---- Shadows (light theme — warm gold undertone) ---- */
+  --shadow-glass: 0 4px 24px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-glass-lg: 0 8px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-glass-hover: 0 16px 50px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-glow-accent: 0 0 30px rgba(225, 45, 57, 0.18), 0 0 60px rgba(225, 45, 57, 0.06);
+  --shadow-glow-blue: 0 0 30px rgba(43, 125, 233, 0.18), 0 0 60px rgba(43, 125, 233, 0.06);
+  --shadow-glow-gold: 0 0 30px rgba(212, 160, 23, 0.22), 0 0 60px rgba(212, 160, 23, 0.08);
+  --shadow-glow-cyan: 0 0 30px rgba(8, 145, 178, 0.18);
+  --shadow-float: 0 20px 60px rgba(0, 0, 0, 0.1);
+
+  /* ---- Glass Blur ---- */
+  --blur-sm: 10px;
+  --blur-md: 20px;
+  --blur-lg: 40px;
+  --blur-xl: 60px;
+
+  /* ---- Transitions ---- */
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-liquid: 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ---- Z-Index ---- */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 500;
+  --z-overlay: 900;
+  --z-modal: 1000;
+  --z-tooltip: 1100;
+
+  /* ---- Container ---- */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1400px;
+
+  /* legacy compat */
+  --primary: var(--scene-bg);
+  --primary-light: #eee9df;
+  --primary-mid: #ddd5c5;
+  --white: #ffffff;
+  --secondary: var(--blue);
+  --secondary-hover: #1a6ad4;
+  --secondary-glow: var(--blue-glow);
+  --secondary-soft: var(--blue-soft);
+  --surface: var(--surface-1);
+  --surface-hover: var(--surface-2);
+  --surface-glass: var(--glass-bg);
+  --bg-light: #faf8f4;
+  --bg-section-alt: #f0ebe0;
+  --border: var(--border-glass);
+  --border-light: var(--border-glass-strong);
+  --text-dark: #0F172A;
+  --success: #059669;
+  --error: #dc2626;
+  --warning: #d97706;
+}

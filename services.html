@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — HiPower Systems & Services</title>
+  <meta name="description" content="HiPower offers AMC for UPS & Stabilizers, Power Quality Audits, Thermography, Electrical Maintenance, and Rental Services across India." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/css/variables.css" />
+  <link rel="stylesheet" href="/src/css/reset.css" />
+  <link rel="stylesheet" href="/src/css/base.css" />
+  <link rel="stylesheet" href="/src/css/layout.css" />
+  <link rel="stylesheet" href="/src/css/animations.css" />
+  <link rel="stylesheet" href="/src/css/components.css" />
+  <script type="module" src="/src/js/main.js"></script>
+  <link rel="icon" type="image/png" href="/images/hipower-logo.png" />
+</head>
+<body>
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <script>
+      if (sessionStorage.getItem('hasLoadedBefore')) {
+        document.getElementById('preloader').style.display = 'none';
+      }
+    </script>
+    <div class="preloader-wrapper">
+      <div class="preloader-spinner"></div>
+      <img src="/images/hipower-logo.png" alt="Loading..." class="preloader-logo" />
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand">
+        <img src="/images/hipower-logo.png" alt="HiPower Systems & Services" class="brand-logo" />
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="products.html">Products</a>
+        <a href="services.html">Services</a>
+        <a href="testimonials.html">Testimonials</a>
+        <a href="contact.html" class="nav-cta">Get a Quote</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- HERO -->
+  <section class="hero hero-inner">
+    <div class="hero-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-down">
+          <span class="dot"></span> Pan-India Service Network
+        </div>
+        <h1 class="animate-fade-up">Our <span class="highlight">Services</span></h1>
+        <p class="hero-subtitle animate-fade-up delay-2">Comprehensive maintenance, audits, and support services to keep your infrastructure running at peak performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section class="section section-glass">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">What We Offer</span>
+        <h2>End-to-End Service Solutions</h2>
+        <p>From preventive maintenance to emergency support, we cover every aspect of your power infrastructure.</p>
+      </div>
+
+      <div class="grid grid-3" style="margin-bottom: var(--space-3xl);">
+        <!-- AMC -->
+        <div class="card reveal">
+          <div class="card-icon">🔧</div>
+          <h3>AMC of UPS & Stabilizer</h3>
+          <p>Comprehensive Annual Maintenance Contracts for all makes and models of UPS systems and voltage stabilizers. Includes:</p>
+          <ul style="margin-top: var(--space-md); color: var(--text-secondary); font-size: var(--fs-sm);">
+            <li style="padding: var(--space-xs) 0;">✓ Preventive maintenance visits</li>
+            <li style="padding: var(--space-xs) 0;">✓ 24/7 emergency breakdown support</li>
+            <li style="padding: var(--space-xs) 0;">✓ Genuine spare parts replacement</li>
+            <li style="padding: var(--space-xs) 0;">✓ Battery health monitoring</li>
+            <li style="padding: var(--space-xs) 0;">✓ Performance reports & analytics</li>
+          </ul>
+        </div>
+
+        <!-- Power Quality Audit -->
+        <div class="card reveal delay-2">
+          <div class="card-icon">📊</div>
+          <h3>Power Quality Audit</h3>
+          <p>In-depth analysis of your electrical infrastructure to identify inefficiencies, harmonics, and power quality issues:</p>
+          <ul style="margin-top: var(--space-md); color: var(--text-secondary); font-size: var(--fs-sm);">
+            <li style="padding: var(--space-xs) 0;">✓ Harmonic analysis & mitigation</li>
+            <li style="padding: var(--space-xs) 0;">✓ Power factor measurement</li>
+            <li style="padding: var(--space-xs) 0;">✓ Load analysis & balancing</li>
+            <li style="padding: var(--space-xs) 0;">✓ Voltage & frequency monitoring</li>
+            <li style="padding: var(--space-xs) 0;">✓ Detailed audit reports with recommendations</li>
+          </ul>
+        </div>
+
+        <!-- Thermography -->
+        <div class="card reveal delay-4">
+          <div class="card-icon">🌡️</div>
+          <h3>Thermography</h3>
+          <p>Non-contact infrared scanning to detect electrical hotspots and potential failures before they happen:</p>
+          <ul style="margin-top: var(--space-md); color: var(--text-secondary); font-size: var(--fs-sm);">
+            <li style="padding: var(--space-xs) 0;">✓ IR thermal scanning of panels</li>
+            <li style="padding: var(--space-xs) 0;">✓ Predictive maintenance insights</li>
+            <li style="padding: var(--space-xs) 0;">✓ Electrical hotspot detection</li>
+            <li style="padding: var(--space-xs) 0;">✓ Loose connection identification</li>
+            <li style="padding: var(--space-xs) 0;">✓ Comprehensive thermal reports</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- Electrical Maintenance -->
+        <div class="card reveal">
+          <div class="card-icon">⚡</div>
+          <h3>Electrical Maintenance</h3>
+          <p>Complete electrical infrastructure maintenance to ensure safety, compliance, and optimal performance:</p>
+          <ul style="margin-top: var(--space-md); color: var(--text-secondary); font-size: var(--fs-sm);">
+            <li style="padding: var(--space-xs) 0;">✓ HT/LT panel maintenance</li>
+            <li style="padding: var(--space-xs) 0;">✓ Transformer servicing</li>
+            <li style="padding: var(--space-xs) 0;">✓ Earthing & grounding testing</li>
+            <li style="padding: var(--space-xs) 0;">✓ Safety audits & compliance checks</li>
+            <li style="padding: var(--space-xs) 0;">✓ DG set maintenance</li>
+          </ul>
+        </div>
+
+        <!-- Rental Services -->
+        <div class="card reveal delay-2">
+          <div class="card-icon">📦</div>
+          <h3>Rental Services</h3>
+          <p>Temporary power solutions for events, shutdowns, or while your permanent equipment is being serviced:</p>
+          <ul style="margin-top: var(--space-md); color: var(--text-secondary); font-size: var(--fs-sm);">
+            <li style="padding: var(--space-xs) 0;">✓ UPS rental (1kVA to 500kVA)</li>
+            <li style="padding: var(--space-xs) 0;">✓ DG set rental</li>
+            <li style="padding: var(--space-xs) 0;">✓ Battery bank rental</li>
+            <li style="padding: var(--space-xs) 0;">✓ Short-term & long-term contracts</li>
+            <li style="padding: var(--space-xs) 0;">✓ On-site installation & support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section class="section section-glass">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Our Process</span>
+        <h2>How We Work</h2>
+        <p>A streamlined 4-step approach to delivering excellence.</p>
+      </div>
+      <div class="process-steps reveal">
+        <div class="process-step">
+          <div class="process-step-number">1</div>
+          <h4>Consult</h4>
+          <p>Understand your requirements and infrastructure setup.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step-number">2</div>
+          <h4>Assess</h4>
+          <p>Site survey, audits, and detailed technical assessment.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step-number">3</div>
+          <h4>Deliver</h4>
+          <p>Deploy solutions with professional installation & commissioning.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-step-number">4</div>
+          <h4>Support</h4>
+          <p>Ongoing maintenance, monitoring, and 24/7 support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-glass">
+    <div class="container">
+      <div class="cta-banner reveal-scale">
+        <h2>Schedule a Service Today</h2>
+        <p>Our expert team is ready to help you optimize your power infrastructure.</p>
+        <a href="contact.html" class="btn btn-gold">
+          <span class="btn-icon">📞</span> Book a Service Call
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="navbar-brand" style="font-size: var(--fs-lg);">
+            <img src="/images/hipower-logo.png" alt="HiPower" class="brand-logo" style="height: 36px;" />
+          </a>
+          <p>ISO-certified experts in Power, Thermal & IT Infrastructure Management. Serving India's critical infrastructure for 20+ years.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="products.html">Products</a>
+            <a href="services.html">Services</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <div class="footer-links">
+            <a href="services.html">AMC — UPS & Stabilizer</a>
+            <a href="services.html">Power Quality Audit</a>
+            <a href="services.html">Thermography</a>
+            <a href="services.html">Electrical Maintenance</a>
+            <a href="services.html">Rental Services</a>
+          </div>
+        </div>
+        <div>
+          <h4>Contact Us</h4>
+          <div class="footer-contact-item">
+            <span class="icon">📍</span>
+            <span>#30, 3rd Main, Industrial Suburb,<br />Peenya 2nd Stage, Bengaluru – 560058</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">📞</span>
+            <a href="tel:+918028396777">+91 80 2839 6777</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="icon">✉️</span>
+            <a href="mailto:info@hipower.in">info@hipower.in</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 HiPower Systems & Services. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Twitter">𝕏</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/918028396777" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+</body>
+</html>
