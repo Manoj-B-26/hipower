@@ -1563,3 +1563,98 @@
   0%, 100% { transform: scale(0.95); opacity: 0.85; }
   50% { transform: scale(1.06); opacity: 1; }
 }
+
+/* ============= MOBILE HERO BUTTONS ============= */
+@media (max-width: 768px) {
+  .hero-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: var(--space-sm) !important;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .hero-actions .btn {
+    flex: 1;
+    padding: 12px 14px !important;
+    font-size: var(--fs-xs) !important;
+    min-width: 0 !important;
+    text-align: center;
+    white-space: nowrap !important;
+  }
+  
+  .hero-actions .btn-icon {
+    font-size: 1rem !important;
+  }
+}
+
+/* ============= INFINITE CLIENT LOGOS TICKER ============= */
+.client-logo-slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: var(--space-md) 0;
+  display: flex;
+  align-items: center;
+}
+
+.client-logo-slider::before,
+.client-logo-slider::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.client-logo-slider::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(242, 244, 248, 1) 0%, rgba(242, 244, 248, 0) 100%);
+}
+
+.client-logo-slider::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(242, 244, 248, 1) 0%, rgba(242, 244, 248, 0) 100%);
+}
+
+.client-logo-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: logoScroll 25s linear infinite;
+}
+
+.client-logo-track:hover {
+  animation-play-state: paused;
+}
+
+.client-logo-item-img {
+  height: 48px;
+  width: auto;
+  max-width: 120px;
+  margin: 0 var(--space-xl);
+  display: inline-block;
+  object-fit: contain;
+  opacity: 0.6;
+  transition: opacity var(--transition-base), filter var(--transition-base), transform var(--transition-base);
+  filter: grayscale(100%);
+}
+
+.client-logo-item-img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+@keyframes logoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
