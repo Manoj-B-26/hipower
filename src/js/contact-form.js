@@ -7,6 +7,21 @@ export function initContactForm() {
   if (!form) return;
 
   form.addEventListener('submit', handleSubmit);
+
+  // Auto-fill from URL parameters if available
+  const params = new URLSearchParams(window.location.search);
+  const mpn = params.get('mpn');
+  const name = params.get('name');
+  if (mpn || name) {
+    const serviceSelect = form.querySelector('#service');
+    if (serviceSelect) {
+      serviceSelect.value = 'products'; // Product Purchase
+    }
+    const messageTextarea = form.querySelector('#message');
+    if (messageTextarea) {
+      messageTextarea.value = `I would like to get a quote for the following Vertiv product:\nProduct: ${name || ''}\nPart Number (MPN): ${mpn || ''}\n\nPlease share the pricing, availability, and delivery timelines.`;
+    }
+  }
 }
 
 function handleSubmit(e) {
