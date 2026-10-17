@@ -27,6 +27,28 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/public/images/favicon/favicon-96x96.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/public/images/favicon/apple-touch-icon.png" />
   <link rel="manifest" href="/public/images/favicon/site.webmanifest" />
+  <style>
+    @media (max-width: 768px) {
+      .contact-layout {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2xl);
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      .reveal-left, .reveal-right {
+        transform: none !important;
+        opacity: 1 !important;
+        width: 100%;
+        max-width: 100%;
+      }
+      .map-container {
+        height: 300px;
+        margin-bottom: var(--space-3xl) !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Preloader -->
@@ -180,7 +202,7 @@
           <p style="margin-bottom: var(--space-xl);">We're located in the heart of Peenya Industrial Area, Bengaluru — India's technology capital.</p>
 
           <!-- Google Map -->
-          <div class="map-container mb-xl">
+          <div class="map-container mb-3xl">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.2!2d77.52!3d13.03!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sPeenya+Industrial+Area%2C+Bengaluru!5e0!3m2!1sen!2sin!4v1234567890"
               loading="lazy"
