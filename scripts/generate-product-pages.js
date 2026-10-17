@@ -352,7 +352,7 @@ function generateProductHtml(product) {
           ${techSpecsHtml}
           <div class="modal-actions" style="margin-top: var(--space-xl);">
             <a href="/contact.html?mpn=${encodeURIComponent(product.mpn)}&name=${encodeURIComponent(product.name)}" class="btn btn-primary btn-lg" style="justify-content: center;">Request Quote</a>
-            <a href="tel:+918028396777" class="btn btn-outline-primary btn-lg" style="justify-content: center;">📞 Call Us</a>
+            <a href="tel:+919187065455" class="btn btn-outline-primary btn-lg" style="justify-content: center;">📞 Call Us</a>
           </div>
         </div>
       </div>

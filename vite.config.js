@@ -36,12 +36,13 @@ export default defineConfig({
         testimonials: resolve(__dirname, 'testimonials.html'),
         contact: resolve(__dirname, 'contact.html'),
         team: resolve(__dirname, 'team.html'),
+        admin: resolve(__dirname, 'admin.html'),
         ...getProductInputs(),
       },
     },
   },
   server: {
-    port: 3000,
+    port: 5173,
     open: true,
   },
 });

@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    HiPower — Product Catalog Module
    3-tier navigation: Landing → Subcategory → Product Grid
    ============================================ */
@@ -784,7 +784,7 @@ function openProductModal(productId) {
         ${techSpecsHtml}
         <div class="modal-actions">
           <a href="contact.html" class="btn btn-primary btn-lg">Request Quote</a>
-          <a href="tel:+918028396777" class="btn btn-outline-primary btn-lg">📞 Call Us</a>
+          <a href="tel:+919187065455" class="btn btn-outline-primary btn-lg">📞 Call Us</a>
         </div>
       </div>
     </div>
