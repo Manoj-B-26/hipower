@@ -25,13 +25,10 @@ export function initContactForm() {
 }
 
 function handleSubmit(e) {
-  e.preventDefault();
-
   const form = e.target;
   const name = form.querySelector('#name').value.trim();
   const email = form.querySelector('#email').value.trim();
   const phone = form.querySelector('#phone').value.trim();
-  const company = form.querySelector('#company').value.trim();
   const message = form.querySelector('#message').value.trim();
 
   // Clear previous errors
@@ -41,56 +38,39 @@ function handleSubmit(e) {
   let isValid = true;
 
   if (!name) {
+    e.preventDefault();
     showError(form.querySelector('#name'), 'Name is required');
     isValid = false;
   }
 
   if (!email || !isValidEmail(email)) {
+    e.preventDefault();
     showError(form.querySelector('#email'), 'Valid email is required');
     isValid = false;
   }
 
   if (!phone || phone.length < 10) {
+    e.preventDefault();
     showError(form.querySelector('#phone'), 'Valid phone number is required');
     isValid = false;
   }
 
   if (!message) {
+    e.preventDefault();
     showError(form.querySelector('#message'), 'Message is required');
     isValid = false;
   }
 
   if (!isValid) return;
 
-  // Compose WhatsApp message
-  const whatsappMessage = encodeURIComponent(
-    `*New Enquiry from Website*\n\n` +
-    `*Name:* ${name}\n` +
-    `*Email:* ${email}\n` +
-    `*Phone:* ${phone}\n` +
-    `${company ? `*Company:* ${company}\n` : ''}` +
-    `*Message:* ${message}`
-  );
-
-  // Open WhatsApp (using HiPower's number)
-  const whatsappUrl = `https://wa.me/919845abortnumber?text=${whatsappMessage}`;
-
-  // Show success state
+  // Show loading state
   const submitBtn = form.querySelector('button[type="submit"]');
   const originalText = submitBtn.innerHTML;
-  submitBtn.innerHTML = '✓ Message Sent!';
-  submitBtn.style.background = '#10B981';
+  submitBtn.innerHTML = '<span class="btn-icon">⏳</span> Sending...';
   submitBtn.disabled = true;
 
-  setTimeout(() => {
-    submitBtn.innerHTML = originalText;
-    submitBtn.style.background = '';
-    submitBtn.disabled = false;
-    form.reset();
-  }, 3000);
-
-  // Also open WhatsApp
-  // window.open(whatsappUrl, '_blank');
+  // Form will submit naturally to FormSubmit
+  // FormSubmit will redirect to a thank you page or back to the form
 }
 
 function isValidEmail(email) {
