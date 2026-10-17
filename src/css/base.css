@@ -102,6 +102,17 @@ p {
   transform: scale(1);
 }
 
+@media (max-width: 768px) {
+  .reveal-left,
+  .reveal-right {
+    transform: translateY(24px);
+  }
+  .reveal-left.visible,
+  .reveal-right.visible {
+    transform: translateY(0);
+  }
+}
+
 /* ---- Glass Utility ---- */
 .glass {
   background: var(--glass-bg);

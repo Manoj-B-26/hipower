@@ -1,4 +1,4 @@
-/* ============================================
+ /* ============================================
    Reusable Components — iOS Liquid Glass LIGHT
    ============================================ */
 
@@ -37,18 +37,65 @@
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 12px;
   font-size: var(--fs-xl);
   font-weight: var(--fw-extrabold);
   color: var(--text-primary);
   letter-spacing: -0.02em;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .navbar-brand .brand-logo {
-  height: 50px;
+  height: 46px;
   width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+  transition: transform var(--transition-fast);
+}
+
+.navbar-brand-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.18);
+  flex-shrink: 0;
   display: block;
 }
+
+.navbar-vertiv-wrap {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar-vertiv-logo {
+  height: 32px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.navbar-brand:hover .brand-logo,
+.navbar-brand:hover .navbar-vertiv-logo {
+  transform: scale(1.02);
+}
+
+.navbar.scrolled .navbar-brand .brand-logo {
+  height: 38px;
+}
+
+.navbar.scrolled .navbar-brand-divider {
+  height: 22px;
+}
+
+.navbar.scrolled .navbar-vertiv-logo {
+  height: 26px;
+}
+
 
 .navbar-brand .brand-icon {
   width: 60px;
@@ -164,7 +211,20 @@
 }
 
 @media (max-width: 1024px) {
-
+  .navbar-brand {
+    gap: 10px;
+  }
+  .navbar-brand .brand-logo {
+    height: 36px;
+    max-width: 140px;
+  }
+  .navbar-brand-divider {
+    height: 24px;
+  }
+  .navbar-vertiv-logo {
+    height: 26px;
+    max-width: 115px;
+  }
 
   .nav-toggle { display: flex; }
 
@@ -207,6 +267,43 @@
     display: block !important;
   }
 }
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    gap: 8px;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .navbar-brand .brand-logo {
+    height: 30px;
+    max-width: 120px;
+  }
+  .navbar-brand-divider {
+    height: 20px;
+  }
+  .navbar-vertiv-logo {
+    height: 22px;
+    max-width: 95px;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar-brand {
+    gap: 6px;
+  }
+  .navbar-brand .brand-logo {
+    height: 25px;
+    max-width: 98px;
+  }
+  .navbar-brand-divider {
+    height: 16px;
+  }
+  .navbar-vertiv-logo {
+    height: 18px;
+    max-width: 78px;
+  }
+}
+
 
 /* Mobile overlay */
 .nav-overlay {
@@ -860,18 +957,33 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
-  gap: var(--space-2xl);
+  grid-template-columns: 1.4fr 1.15fr 1fr 1.05fr 1.15fr 0.85fr;
+  gap: var(--space-xl);
   margin-bottom: var(--space-2xl);
 }
 
+@media (max-width: 1200px) {
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+
 /* ============= FOOTER BRAND LOGOS & VERTIV ============= */
 .footer-brand-row {
-  display: ruby;
+  display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: var(--space-md);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+}
+
+.footer-brand-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
 }
 
 .footer-logo {
@@ -880,17 +992,25 @@
   max-width: 175px;
   object-fit: contain;
   display: block;
+  transition: transform var(--transition-fast);
+}
+
+.footer-logo:hover {
+  transform: scale(1.03);
 }
 
 .footer-brand-divider {
   width: 1px;
   height: 32px;
   background: rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  display: block;
 }
 
 .footer-vertiv-wrap {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .footer-vertiv-logo {
@@ -1052,11 +1172,98 @@
 }
 
 @media (max-width: 768px) {
-  .footer-grid { grid-template-columns: 1fr; text-align: center; }
+  .footer-grid { grid-template-columns: 1fr; text-align: center; gap: var(--space-xl); }
+  .footer h4 { margin-bottom: var(--space-sm); }
   .footer-brand p { margin: var(--space-md) auto 0; }
   .footer-contact-item { justify-content: center; }
   .footer-bottom { justify-content: center; text-align: center; }
-  .footer-brand-row { justify-content: center; }
+
+  /* Mobile Quick links: all links in the same line */
+  .footer-links-quick {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .footer-links-quick a {
+    width: auto;
+    text-align: center;
+    padding: 6px 2px;
+    white-space: nowrap;
+    font-size: var(--fs-sm);
+  }
+
+  .footer-links-quick a:hover {
+    transform: none;
+  }
+
+  /* Our Offerings, Services & Industries We Serve: 2 columns */
+  .footer-links-offerings,
+  .footer-links-services,
+  .footer-links-industries {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 16px;
+    justify-items: center;
+    align-items: center;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .footer-links-offerings a,
+  .footer-links-services a,
+  .footer-links-industries a {
+    width: 100%;
+    text-align: center;
+    padding: 6px 4px;
+  }
+
+  .footer-links-offerings a:hover,
+  .footer-links-services a:hover,
+  .footer-links-industries a:hover {
+    transform: none;
+  }
+
+  /* If odd number of links, place the last link in center */
+  .footer-links-offerings a:nth-child(odd):last-child,
+  .footer-links-services a:nth-child(odd):last-child,
+  .footer-links-industries a:nth-child(odd):last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    text-align: center;
+    max-width: 85%;
+  }
+
+
+  .footer-brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+  .footer-logo {
+    height: 32px;
+    max-width: 135px;
+    flex-shrink: 1;
+  }
+  .footer-brand-divider {
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .footer-vertiv-wrap {
+    flex-shrink: 1;
+  }
+  .footer-vertiv-logo {
+    height: 26px;
+    max-width: 120px;
+    flex-shrink: 1;
+  }
   .footer-industries-grid {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
@@ -1068,6 +1275,37 @@
     text-align: center;
   }
 }
+
+@media (max-width: 380px) {
+  .footer-links-quick {
+    gap: 6px;
+  }
+  .footer-links-quick a {
+    font-size: 0.76rem;
+    padding: 4px 1px;
+  }
+  .footer-links-offerings,
+  .footer-links-services,
+  .footer-links-industries {
+    gap: 6px 8px;
+    font-size: 0.82rem;
+  }
+  .footer-brand-row {
+    gap: 8px;
+  }
+  .footer-logo {
+    height: 27px;
+    max-width: 110px;
+  }
+  .footer-brand-divider {
+    height: 18px;
+  }
+  .footer-vertiv-logo {
+    height: 21px;
+    max-width: 95px;
+  }
+}
+
 
 /* ============= WHATSAPP FLOAT ============= */
 .whatsapp-float {
@@ -1117,6 +1355,8 @@
 .form-input,
 .form-textarea {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 14px 18px;
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(10px);
@@ -1146,6 +1386,24 @@
   resize: vertical;
 }
 
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+}
+
 /* ============= SERVICE PROCESS ============= */
 .process-steps {
   display: flex;
@@ -1153,17 +1411,6 @@
   justify-content: space-between;
   position: relative;
   gap: var(--space-md);
-}
-
-.process-steps::before {
-  content: '';
-  position: absolute;
-  top: 32px;
-  left: 10%;
-  right: 10%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--gold), var(--blue));
-  opacity: 0.2;
 }
 
 .process-step {
@@ -1206,14 +1453,6 @@
     flex-direction: column;
     align-items: center;
     gap: var(--space-xl);
-  }
-  .process-steps::before {
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    right: auto;
-    width: 2px;
-    height: 100%;
   }
 }
 
@@ -1302,14 +1541,26 @@
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  height: 400px;
+  height: 380px;
   box-shadow: var(--shadow-glass);
+  margin-bottom: var(--space-xl);
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
 .map-container iframe {
   width: 100%;
   height: 100%;
   border: 0;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 300px;
+    margin-bottom: var(--space-xl);
+  }
 }
 
 /* ============= INDUSTRIES — GLASS PILL LIGHT ============= */
@@ -1411,6 +1662,70 @@
 
 .feature-glass:hover .feature-icon {
   transform: scale(1.1);
+}
+
+/* ============= ABOUT STORY BADGE & CARD ============= */
+.story-card-wrapper {
+  position: relative;
+  text-align: center;
+}
+
+.story-card {
+  padding: var(--space-3xl);
+  text-align: center;
+}
+
+.story-badge {
+  position: absolute;
+  bottom: -24px;
+  right: 24px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: var(--white);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-glow-accent);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.story-badge-number {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-black);
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+
+.story-badge-label {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .story-card {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .story-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .story-badge {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    margin: -24px auto var(--space-md);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 8px 24px rgba(224, 36, 62, 0.3);
+  }
 }
 
 /* ============= HERO SPLIT LAYOUT & CATALOG SHOWCASE ============= */
