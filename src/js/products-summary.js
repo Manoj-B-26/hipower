@@ -574,17 +574,6 @@ export const products = [
     "manufacturer": "Vertiv"
   },
   {
-    "id": "1077101901",
-    "mpn": "ADX-IPSL104-400",
-    "name": "Vertiv Avocent ADX IPSL104 Serial IP Device | 4 Port | Remote Console Server",
-    "brand": "AVOCENT",
-    "productType": "Infrastructure Management Equipment",
-    "category": "Infrastructure Management Equipment",
-    "image": "https://content.etilize.com/500/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-    "marketing": "Unleash the Power of Serial over IP: Connect to any Serial DeviceTransform your serial device management with this cu…",
-    "manufacturer": "Vertiv"
-  },
-  {
     "id": "1079843189",
     "mpn": "5060T1021001",
     "name": "Vertiv Liebert PDX PX021U Direct Expansion Cooling, Up Flow Direction Cooling, Digital, Precision Air Conditioning",
@@ -3508,6 +3497,17 @@ export const products = [
     "category": "Cooling Systems",
     "image": "https://content.etilize.com/500/1083038466.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
     "marketing": "The Vertiv Liebert PX092U is a direct expansion cooling unit designed for small and medium data centers. This 92kW pr…",
+    "manufacturer": "Vertiv"
+  },
+  {
+    "id": "1077101901",
+    "mpn": "ADX-IPSL104-400",
+    "name": "Vertiv Avocent ADX IPSL104 Serial IP Device | 4 Port | Remote Console Server - Vertiv Avocent IPSL IP Serial Device | IT Management | Remote Serial Access | Serial over IP (ADX-IPSL104-400)",
+    "brand": "AVOCENT",
+    "productType": "Infrastructure Management Equipment",
+    "category": "Infrastructure Management Equipment",
+    "image": "https://content.etilize.com/500/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
+    "marketing": "<p><b>Unleash the Power of Serial over IP: Connect to any Serial Device</b></p><p>Transform your serial device manage…",
     "manufacturer": "Vertiv"
   }
 ];

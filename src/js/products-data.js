@@ -18403,172 +18403,6 @@ export const products = [
         "pdfManual": ""
     },
     {
-        "id": "1077101901",
-        "mpn": "ADX-IPSL104-400",
-        "name": "Vertiv Avocent ADX IPSL104 Serial IP Device | 4 Port | Remote Console Server",
-        "fullDescription": "Vertiv Avocent ADX IPSL104 Serial IP Device | 4 Port | Remote Console Server - Vertiv Avocent IPSL IP Serial Device | IT Management | Remote Serial Access | Serial over IP (ADX-IPSL104-400)",
-        "longDesc": "Vertiv Avocent IPSL IP Serial Device | IT Management | Remote Serial Access | Serial over IP (ADX-IPSL104-400)",
-        "marketing": "Unleash the Power of Serial over IP: Connect to any Serial DeviceTransform your serial device management with this cutting-edge Serial over IP solution! Effortlessly bridge diverse serial devices to the modern IP network.* Instant Remote Access: Manage and control any serial device with a secure, web-based interface.* Unmatched Versatility: Connect a wide range of serial devices: industrial, network, medical, POS* Rock-Solid Security: Protect data with secure boot, strong encryption and standard protocols.* Simplified Management: Intuitive UI to simplify setup and minimize maintenance tasks.Take control of your IT devices with this innovative Serial over IP solution. Experience the power of unified connectivity.",
-        "productType": "Infrastructure Management Equipment",
-        "brand": "AVOCENT",
-        "manufacturer": "Vertiv",
-        "category": "Infrastructure Management Equipment",
-        "categoryId": "11145",
-        "categoryTree": "Information Technology > Network & Communication > Infrastructure Management Equipment",
-        "level1Category": "Information Technology",
-        "level2Category": "Network & Communication",
-        "level3Category": "Infrastructure Management Equipment",
-        "keywords": "43222634 636430091075 0636430091075 411 ~~   vertiv adx-ipsl104-400 1077101901 vertiv avocent adx ipsl104 serial ip device | 4 port | remote console server vertiv avocent ipsl ip serial device | it management | remote serial access | serial over ip adx-ipsl104-400 ADX Infrastructure Management Equipment ADX IPSL Serial IP Device",
-        "unspsc": "43222634",
-        "gtin": "6.3643E+11",
-        "upc": "6.3643E+11",
-        "ean": "6.3643E+11",
-        "image": "https://content.etilize.com/500/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-        "images": {
-            "75": "https://content.etilize.com/75/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "160": "https://content.etilize.com/160/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "225": "https://content.etilize.com/225/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "300": "https://content.etilize.com/300/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "500": "https://content.etilize.com/500/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "650": "https://content.etilize.com/650/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "900": "https://content.etilize.com/900/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "1100": "https://content.etilize.com/1100/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "1300": "https://content.etilize.com/1300/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "1500": "https://content.etilize.com/1500/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "Original": "https://content.etilize.com/Original/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "Alternate-Image1": "https://content.etilize.com/Alternate-Image1/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "Alternate-Image2": "https://content.etilize.com/Alternate-Image2/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "Alternate-Image3": "https://content.etilize.com/Alternate-Image3/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "Alternate-Image4": "https://content.etilize.com/Alternate-Image4/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
-            "Alternate-Image5": "https://content.etilize.com/Alternate-Image5/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920"
-        },
-        "features": [],
-        "techSpecsHtml": "<div id=\"detailSpec\"><h4>General Information</h4><table><tbody><tr><td>Manufacturer</td><td>Vertiv</td></tr><tr><td>Manufacturer Part Number</td><td>ADX-IPSL104-400</td></tr><tr><td>Manufacturer Website Address</td><td>http://www.vertiv.com/</td></tr><tr><td>Brand Name</td><td>AVOCENT</td></tr><tr><td>Product Series</td><td>ADX</td></tr><tr><td>Product Name</td><td>ADX IPSL Serial IP Device</td></tr><tr><td>Marketing Information</td><td><p><b>Unleash the Power of Serial over IP: Connect to any Serial Device</b></p><p>Transform your serial device management with this cutting-edge Serial over IP solution! Effortlessly bridge diverse serial devices to the modern IP network.</p><p><br /></p><p>* <b>Instant Remote Access:</b> Manage and control any serial device with a secure, web-based interface.</p><p>* <b>Unmatched Versatility:</b> Connect a wide range of serial devices: industrial, network, medical, POS</p><p>* <b>Rock-Solid Security:</b> Protect data with secure boot, strong encryption and standard protocols.</p><p>* <b>Simplified Management: </b>Intuitive UI to simplify setup and minimize maintenance tasks.</p><p><br /></p><p>Take control of your IT devices with this innovative Serial over IP solution. Experience the power of unified connectivity.</p></td></tr><tr><td>Product Type</td><td>Infrastructure Management Equipment</td></tr><hr></tbody></table><h4>Physical Characteristics</h4><table><tbody><tr><td>Form Factor</td><td>Standalone</td></tr><hr></tbody></table><h4>Miscellaneous</h4><table><tbody><tr><td>Application/Usage</td><td>Remote Management</td></tr><tr><td>Compatibility</td><td><b>Avocent Products:</b><br /> <ul> <li>ADX MP1000</li> <li>ADX RM1048P</li> </ul></td></tr><hr></tbody></table><h4>Warranty</h4><table><tbody><tr><td>Limited Warranty</td><td>3 Year</td></tr><tr><td>Additional Warranty Information</td><td>Optional Extended Warranty Available</td></tr><hr></tbody></table>",
-        "techSpecsJson": {
-            "headers": [
-                {
-                    "id": 35,
-                    "name": "General Information",
-                    "attributes": [
-                        {
-                            "id": 3211896,
-                            "name": "Manufacturer",
-                            "values": [
-                                "Vertiv"
-                            ]
-                        },
-                        {
-                            "id": 321450,
-                            "name": "Manufacturer Part Number",
-                            "values": [
-                                "ADX-IPSL104-400"
-                            ]
-                        },
-                        {
-                            "id": 321451,
-                            "name": "Manufacturer Website Address",
-                            "values": [
-                                "http://www.vertiv.com/"
-                            ]
-                        },
-                        {
-                            "id": 32113319,
-                            "name": "Brand Name",
-                            "values": [
-                                "AVOCENT"
-                            ]
-                        },
-                        {
-                            "id": 32112816,
-                            "name": "Product Series",
-                            "values": [
-                                "ADX"
-                            ]
-                        },
-                        {
-                            "id": 3211997,
-                            "name": "Product Name",
-                            "values": [
-                                "ADX IPSL Serial IP Device"
-                            ]
-                        },
-                        {
-                            "id": 321452,
-                            "name": "Marketing Information",
-                            "values": [
-                                "<p><b>Unleash the Power of Serial over IP: Connect to any Serial Device</b></p><p>Transform your serial device management with this cutting-edge Serial over IP solution! Effortlessly bridge diverse serial devices to the modern IP network.</p><p><br /></p><p>* <b>Instant Remote Access:</b> Manage and control any serial device with a secure, web-based interface.</p><p>* <b>Unmatched Versatility:</b> Connect a wide range of serial devices: industrial, network, medical, POS</p><p>* <b>Rock-Solid Security:</b> Protect data with secure boot, strong encryption and standard protocols.</p><p>* <b>Simplified Management: </b>Intuitive UI to simplify setup and minimize maintenance tasks.</p><p><br /></p><p>Take control of your IT devices with this innovative Serial over IP solution. Experience the power of unified connectivity.</p>"
-                            ]
-                        },
-                        {
-                            "id": 321100,
-                            "name": "Product Type",
-                            "values": [
-                                "Infrastructure Management Equipment"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": 66,
-                    "name": "Physical Characteristics",
-                    "attributes": [
-                        {
-                            "id": 3211506,
-                            "name": "Form Factor",
-                            "values": [
-                                "Standalone"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": 57,
-                    "name": "Miscellaneous",
-                    "attributes": [
-                        {
-                            "id": 32129,
-                            "name": "Application/Usage",
-                            "values": [
-                                "Remote Management"
-                            ]
-                        },
-                        {
-                            "id": 321150,
-                            "name": "Compatibility",
-                            "values": [
-                                "<b>Avocent Products:</b><br /> <ul> <li>ADX MP1000</li> <li>ADX RM1048P</li> </ul>"
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "id": 98,
-                    "name": "Warranty",
-                    "attributes": [
-                        {
-                            "id": 321820,
-                            "name": "Limited Warranty",
-                            "values": [
-                                "3 Year"
-                            ]
-                        },
-                        {
-                            "id": 32111,
-                            "name": "Additional Warranty Information",
-                            "values": [
-                                "Optional Extended Warranty Available"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        "techSpecs": "Manufacturer: Vertiv\r\nManufacturer Part Number: ADX-IPSL104-400\r\nManufacturer Website Address: http://www.vertiv.com/\r\nBrand Name: AVOCENT\r\nProduct Series: ADX\r\nProduct Name: ADX IPSL Serial IP Device\r\nMarketing Information: <p><b>Unleash the Power of Serial over IP: Connect to any Serial Device</b></p><p>Transform your serial device management with this cutting-edge Serial over IP solution! Effortlessly bridge diverse serial devices to the modern IP network.</p><p><br /></p><p>* <b>Instant Remote Access:</b> Manage and control any serial device with a secure, web-based interface.</p><p>* <b>Unmatched Versatility:</b> Connect a wide range of serial devices: industrial, network, medical, POS</p><p>* <b>Rock-Solid Security:</b> Protect data with secure boot, strong encryption and standard protocols.</p><p>* <b>Simplified Management: </b>Intuitive UI to simplify setup and minimize maintenance tasks.</p><p><br /></p><p>Take control of your IT devices with this innovative Serial over IP solution. Experience the power of unified connectivity.</p>\r\nProduct Type: Infrastructure Management Equipment\r\nForm Factor: Standalone\r\nApplication/Usage: Remote Management\r\nCompatibility: <b>Avocent Products:</b><br /> <ul> <li>ADX MP1000</li> <li>ADX RM1048P</li> </ul>\r\nLimited Warranty: 3 Year\r\nAdditional Warranty Information: Optional Extended Warranty Available",
-        "videoTour": "",
-        "pdfBrochure": "",
-        "pdfManual": ""
-    },
-    {
         "id": "1079843189",
         "mpn": "5060T1021001",
         "name": "Vertiv Liebert PDX PX021U Direct Expansion Cooling, Up Flow Direction Cooling, Digital, Precision Air Conditioning",
@@ -87522,5 +87356,41 @@ export const products = [
         "videoTour": "",
         "pdfBrochure": "https://content.etilize.com/Manufacturer-Brochure/1083038466.pdf?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
         "pdfManual": ""
+    },
+    {
+        "id": "1077101901",
+        "mpn": "ADX-IPSL104-400",
+        "name": "Vertiv Avocent ADX IPSL104 Serial IP Device | 4 Port | Remote Console Server - Vertiv Avocent IPSL IP Serial Device | IT Management | Remote Serial Access | Serial over IP (ADX-IPSL104-400)",
+        "fullDescription": "Vertiv Avocent ADX IPSL104 Serial IP Device | 4 Port | Remote Console Server - Vertiv Avocent IPSL IP Serial Device | IT Management | Remote Serial Access | Serial over IP (ADX-IPSL104-400)",
+        "longDesc": "Vertiv Avocent IPSL IP Serial Device | IT Management | Remote Serial Access | Serial over IP (ADX-IPSL104-400)",
+        "marketing": "<p><b>Unleash the Power of Serial over IP: Connect to any Serial Device</b></p><p>Transform your serial device management with this cutting-edge Serial over IP solution! Effortlessly bridge diverse serial devices to the modern IP network.</p><p><br /></p><p>* <b>Instant Remote Access:</b> Manage and control any serial device with a secure, web-based interface.</p><p>* <b>Unmatched Versatility:</b> Connect a wide range of serial devices: industrial, network, medical, POS</p><p>* <b>Rock-Solid Security:</b> Protect data with secure boot, strong encryption and standard protocols.</p><p>* <b>Simplified Management: </b>Intuitive UI to simplify setup and minimize maintenance tasks.</p><p><br /></p><p>Take control of your IT devices with this innovative Serial over IP solution. Experience the power of unified connectivity.</p>",
+        "productType": "Infrastructure Management Equipment",
+        "brand": "AVOCENT",
+        "manufacturer": "Vertiv",
+        "category": "Infrastructure Management Equipment",
+        "categoryId": "11145",
+        "categoryTree": "Information Technology > Network & Communication > Infrastructure Management Equipment",
+        "level1Category": "Information Technology",
+        "level2Category": "Network & Communication",
+        "level3Category": "Infrastructure Management Equipment",
+        "keywords": "43222634 636430091075 0636430091075 411 ~~   vertiv adx-ipsl104-400 1077101901 vertiv avocent adx ipsl104 serial ip device | 4 port | remote console server vertiv avocent ipsl ip serial device | it management | remote serial access | serial over ip adx-ipsl104-400 ADX Infrastructure Management Equipment ADX IPSL Serial IP Device",
+        "unspsc": "43222634",
+        "gtin": "6.3643E+11",
+        "upc": "6.3643E+11",
+        "ean": "6.3643E+11",
+        "image": "https://content.etilize.com/500/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
+        "images": {
+            "75": "https://content.etilize.com/75/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
+            "160": "https://content.etilize.com/160/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
+            "500": "https://content.etilize.com/500/1077101901.jpg?_672b0e9d290907d2bde6cd5e921314d9e4a14920",
+            "Rear": "https://content.etilize.com/Rear/1077101901.jpg",
+            "Right": "https://content.etilize.com/Right/1077101901.jpg"
+        },
+        "features": [],
+        "techSpecsHtml": "<div id=\"detailSpec\"><h4>General Information</h4><table><tbody><tr><td>Manufacturer</td><td>Vertiv</td></tr><tr><td>Manufacturer Part Number</td><td>ADX-IPSL104-400</td></tr><tr><td>Manufacturer Website Address</td><td>http://www.vertiv.com/</td></tr><tr><td>Brand Name</td><td>AVOCENT</td></tr><tr><td>Product Series</td><td>ADX</td></tr><tr><td>Product Name</td><td>ADX IPSL Serial IP Device</td></tr><tr><td>Marketing Information</td><td><p><b>Unleash the Power of Serial over IP: Connect to any Serial Device</b></p><p>Transform your serial device management with this cutting-edge Serial over IP solution! Effortlessly bridge diverse serial devices to the modern IP network.</p><p><br /></p><p>* <b>Instant Remote Access:</b> Manage and control any serial device with a secure, web-based interface.</p><p>* <b>Unmatched Versatility:</b> Connect a wide range of serial devices: industrial, network, medical, POS</p><p>* <b>Rock-Solid Security:</b> Protect data with secure boot, strong encryption and standard protocols.</p><p>* <b>Simplified Management: </b>Intuitive UI to simplify setup and minimize maintenance tasks.</p><p><br /></p><p>Take control of your IT devices with this innovative Serial over IP solution. Experience the power of unified connectivity.</p></td></tr><tr><td>Product Type</td><td>Infrastructure Management Equipment</td></tr><hr></tbody></table><h4>Physical Characteristics</h4><table><tbody><tr><td>Form Factor</td><td>Standalone</td></tr><hr></tbody></table><h4>Miscellaneous</h4><table><tbody><tr><td>Application/Usage</td><td>Remote Management</td></tr><tr><td>Compatibility</td><td><b>Avocent Products:</b><br /> <ul> <li>ADX MP1000</li> <li>ADX RM1048P</li> </ul></td></tr><hr></tbody></table><h4>Warranty</h4><table><tbody><tr><td>Limited Warranty</td><td>3 Year</td></tr><tr><td>Additional Warranty Information</td><td>Optional Extended Warranty Available</td></tr><hr></tbody></table>",
+        "techSpecsJson": {},
+        "techSpecs": "Manufacturer: Vertiv\r\nManufacturer Part Number: ADX-IPSL104-400\r\nManufacturer Website Address: http://www.vertiv.com/\r\nBrand Name: AVOCENT\r\nProduct Series: ADX\r\nProduct Name: ADX IPSL Serial IP Device\r\nMarketing Information: <p><b>Unleash the Power of Serial over IP: Connect to any Serial Device</b></p><p>Transform your serial device management with this cutting-edge Serial over IP solution! Effortlessly bridge diverse serial devices to the modern IP network.</p><p><br /></p><p>* <b>Instant Remote Access:</b> Manage and control any serial device with a secure, web-based interface.</p><p>* <b>Unmatched Versatility:</b> Connect a wide range of serial devices: industrial, network, medical, POS</p><p>* <b>Rock-Solid Security:</b> Protect data with secure boot, strong encryption and standard protocols.</p><p>* <b>Simplified Management: </b>Intuitive UI to simplify setup and minimize maintenance tasks.</p><p><br /></p><p>Take control of your IT devices with this innovative Serial over IP solution. Experience the power of unified connectivity.</p>\r\nProduct Type: Infrastructure Management Equipment\r\nForm Factor: Standalone\r\nApplication/Usage: Remote Management\r\nCompatibility: <b>Avocent Products:</b><br /> <ul> <li>ADX MP1000</li> <li>ADX RM1048P</li> </ul>\r\nLimited Warranty: 3 Year\r\nAdditional Warranty Information: Optional Extended Warranty Available",
+        "pdfBrochure": "https://content.etilize.com/Manufacturer-Brochure/1077101901.pdf",
+        "pdfManual": "https://content.etilize.com/User-Manual/1077101901.pdf"
     }
 ];

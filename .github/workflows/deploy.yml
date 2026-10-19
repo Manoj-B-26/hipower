@@ -1,52 +1,48 @@
-# GitHub Pages Deployment — Coming Soon Only
-# This workflow builds only the coming-soon page and deploys it
-name: Deploy Coming Soon
+name: Deploy Full Website
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Prepare Coming Soon site
-        run: |
-          mkdir -p _site/images
-          # Copy the coming-soon page as the main index
-          cp coming-soon.html _site/index.html
-          # Copy required assets (logo, favicon)
-          cp public/images/hipower-logo.png _site/images/hipower-logo.png
-          # Copy CNAME for custom domain
-          cp public/CNAME _site/CNAME
-          # Create a 404 page that redirects to the coming soon page
-          cp coming-soon.html _site/404.html
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
-      - name: Setup Pages
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site with Vite
+        run: npm run build
+
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site'
+          path: 'dist'
 
       - name: Deploy to GitHub Pages
         id: deployment

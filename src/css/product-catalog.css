@@ -943,10 +943,9 @@
   margin: 0;
 }
 
-.modal-product-mpn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
+.modal-product-mpn,
+.product-card-mpn {
+  display: none !important;
 }
 
 .mpn-label {

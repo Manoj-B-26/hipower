@@ -15,7 +15,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const PRODUCTS_DATA_PATH = path.join(rootDir, 'src', 'js', 'products-data.js');
-const ADMIN_PASSWORD = 'hipower2025'; // Change this!
+const ADMIN_PASSWORD = 'hipower2026'; // Change this!
 
 const app = express();
 app.use(cors());
@@ -89,55 +89,172 @@ app.delete('/api/products/:id', auth, (req, res) => {
   }
 });
 
-// POST /api/products — add a new product (minimal entry from Etilize ID)
+// POST /api/products — add a new product
 app.post('/api/products', auth, (req, res) => {
   try {
-    const { id, mpn, name, brand, category, marketing, productType, manufacturer } = req.body;
+    const p = req.body;
+    const id = String(p.id || '').trim();
+    const name = (p.name || p.fullDescription || '').trim();
     if (!id || !name) {
-      return res.status(400).json({ error: 'id and name are required' });
+      return res.status(400).json({ error: 'Product ID and Name are required' });
     }
     const products = readProducts();
-    if (products.find(p => p.id === id)) {
-      return res.status(409).json({ error: 'Product already exists' });
+    if (products.find(item => item.id === id)) {
+      return res.status(409).json({ error: `Product ID ${id} already exists on website` });
     }
 
     const newProduct = {
-      id: String(id),
-      mpn: mpn || '',
-      name: name || '',
-      fullDescription: name || '',
-      longDesc: '',
-      marketing: marketing || '',
-      productType: productType || '',
-      brand: brand || 'Vertiv',
-      manufacturer: manufacturer || 'Vertiv',
-      category: category || 'General Purpose UPS',
-      categoryId: '',
-      categoryTree: '',
-      level1Category: 'Power Equipment',
-      level2Category: 'UPS',
-      level3Category: category || 'General Purpose UPS',
-      keywords: '',
-      unspsc: '',
-      gtin: '', upc: '', ean: '',
-      image: `https://content.etilize.com/500/${id}.jpg`,
-      images: {
+      id,
+      mpn: p.mpn || '',
+      name,
+      fullDescription: p.fullDescription || name,
+      longDesc: p.longDesc || '',
+      marketing: p.marketing || '',
+      productType: p.productType || '',
+      brand: p.brand || 'Vertiv',
+      manufacturer: p.manufacturer || 'Vertiv',
+      category: p.category || 'General Purpose UPS',
+      categoryId: p.categoryId ? String(p.categoryId) : '',
+      categoryTree: p.categoryTree || '',
+      level1Category: p.level1Category || 'Power Equipment',
+      level2Category: p.level2Category || 'UPS',
+      level3Category: p.level3Category || p.category || 'General Purpose UPS',
+      keywords: p.keywords || '',
+      unspsc: p.unspsc ? String(p.unspsc) : '',
+      gtin: p.gtin ? String(p.gtin) : '',
+      upc: p.upc ? String(p.upc) : '',
+      ean: p.ean ? String(p.ean) : '',
+      image: p.image || `https://content.etilize.com/500/${id}.jpg`,
+      images: p.images || {
         '75': `https://content.etilize.com/75/${id}.jpg`,
         '160': `https://content.etilize.com/160/${id}.jpg`,
         '500': `https://content.etilize.com/500/${id}.jpg`,
         'Rear': `https://content.etilize.com/Rear/${id}.jpg`,
         'Right': `https://content.etilize.com/Right/${id}.jpg`
       },
-      features: [],
-      techSpecsHtml: '',
-      techSpecsJson: {},
-      pdfBrochure: `https://content.etilize.com/Manufacturer-Brochure/${id}.pdf`,
-      pdfManual: `https://content.etilize.com/User-Manual/${id}.pdf`
+      features: Array.isArray(p.features) ? p.features : [],
+      techSpecsHtml: p.techSpecsHtml || '',
+      techSpecsJson: p.techSpecsJson || {},
+      techSpecs: p.techSpecs || '',
+      pdfBrochure: p.pdfBrochure || `https://content.etilize.com/Manufacturer-Brochure/${id}.pdf`,
+      pdfManual: p.pdfManual || `https://content.etilize.com/User-Manual/${id}.pdf`
     };
 
     products.push(newProduct);
     writeProducts(products);
     res.json({ success: true, product: newProduct, total: products.length });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/products/batch — add multiple products from Excel
+app.post('/api/products/batch', auth, (req, res) => {
+  try {
+    const list = req.body.products;
+    if (!Array.isArray(list) || list.length === 0) {
+      return res.status(400).json({ error: 'No products provided' });
+    }
+
+    const products = readProducts();
+    const existingIds = new Set(products.map(p => p.id));
+    const addedList = [];
+    const skippedList = [];
+
+    for (const p of list) {
+      const id = String(p.id || '').trim();
+      const name = (p.name || p.fullDescription || '').trim();
+      if (!id || !name) {
+        skippedList.push({ id, reason: 'Missing id or name' });
+        continue;
+      }
+      if (existingIds.has(id)) {
+        skippedList.push({ id, reason: 'Already exists' });
+        continue;
+      }
+
+      const newProduct = {
+        id,
+        mpn: p.mpn || '',
+        name,
+        fullDescription: p.fullDescription || name,
+        longDesc: p.longDesc || '',
+        marketing: p.marketing || '',
+        productType: p.productType || '',
+        brand: p.brand || 'Vertiv',
+        manufacturer: p.manufacturer || 'Vertiv',
+        category: p.category || 'General Purpose UPS',
+        categoryId: p.categoryId ? String(p.categoryId) : '',
+        categoryTree: p.categoryTree || '',
+        level1Category: p.level1Category || 'Power Equipment',
+        level2Category: p.level2Category || 'UPS',
+        level3Category: p.level3Category || p.category || 'General Purpose UPS',
+        keywords: p.keywords || '',
+        unspsc: p.unspsc ? String(p.unspsc) : '',
+        gtin: p.gtin ? String(p.gtin) : '',
+        upc: p.upc ? String(p.upc) : '',
+        ean: p.ean ? String(p.ean) : '',
+        image: p.image || `https://content.etilize.com/500/${id}.jpg`,
+        images: p.images || {
+          '75': `https://content.etilize.com/75/${id}.jpg`,
+          '160': `https://content.etilize.com/160/${id}.jpg`,
+          '500': `https://content.etilize.com/500/${id}.jpg`,
+          'Rear': `https://content.etilize.com/Rear/${id}.jpg`,
+          'Right': `https://content.etilize.com/Right/${id}.jpg`
+        },
+        features: Array.isArray(p.features) ? p.features : [],
+        techSpecsHtml: p.techSpecsHtml || '',
+        techSpecsJson: p.techSpecsJson || {},
+        techSpecs: p.techSpecs || '',
+        pdfBrochure: p.pdfBrochure || `https://content.etilize.com/Manufacturer-Brochure/${id}.pdf`,
+        pdfManual: p.pdfManual || `https://content.etilize.com/User-Manual/${id}.pdf`
+      };
+
+      products.push(newProduct);
+      existingIds.add(id);
+      addedList.push(id);
+    }
+
+    if (addedList.length > 0) {
+      writeProducts(products);
+    }
+
+    res.json({
+      success: true,
+      addedCount: addedList.length,
+      skippedCount: skippedList.length,
+      addedIds: addedList,
+      total: products.length
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/products/batch-delete — remove multiple products
+app.post('/api/products/batch-delete', auth, (req, res) => {
+  try {
+    const ids = req.body.ids;
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ error: 'No IDs provided' });
+    }
+
+    const removeSet = new Set(ids.map(id => String(id).trim()));
+    const products = readProducts();
+    const remaining = products.filter(p => !removeSet.has(p.id));
+    const removedCount = products.length - remaining.length;
+
+    writeProducts(remaining);
+
+    // Delete product page folders
+    for (const id of removeSet) {
+      const productDir = path.join(rootDir, 'products', id);
+      if (fs.existsSync(productDir)) {
+        fs.rmSync(productDir, { recursive: true, force: true });
+      }
+    }
+
+    res.json({ success: true, removedCount, remaining: remaining.length });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

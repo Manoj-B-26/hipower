@@ -19,7 +19,7 @@ export function initContactForm() {
     }
     const messageTextarea = form.querySelector('#message');
     if (messageTextarea) {
-      messageTextarea.value = `I would like to get a quote for the following Vertiv product:\nProduct: ${name || ''}\nPart Number (MPN): ${mpn || ''}\n\nPlease share the pricing, availability, and delivery timelines.`;
+      messageTextarea.value = `I would like to get a quote for the following Vertiv product:\nProduct: ${name || ''}\n\nPlease share the pricing, availability, and delivery timelines.`;
     }
   }
 }

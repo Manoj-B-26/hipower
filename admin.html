@@ -6,6 +6,8 @@
   <title>HiPower Admin — Product Manager</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- SheetJS for client-side Excel reading & writing -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -13,9 +15,11 @@
       --bg: #080c14;
       --surface: #0d1424;
       --surface2: #111827;
+      --surface3: #1a2336;
       --border: rgba(255,255,255,0.08);
       --accent: #FF3B5C;
       --blue: #2B7DE9;
+      --blue-hover: #1e6fd4;
       --green: #10b981;
       --amber: #f59e0b;
       --text: #f0f4ff;
@@ -62,7 +66,7 @@
       border-radius: var(--radius);
       color: var(--text);
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 0.95rem;
       margin-bottom: 16px;
       outline: none;
       transition: border-color 0.2s;
@@ -73,7 +77,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px 24px;
+      padding: 10px 20px;
       border-radius: var(--radius);
       font-family: inherit;
       font-size: 0.875rem;
@@ -81,14 +85,18 @@
       cursor: pointer;
       border: none;
       transition: all 0.2s;
+      white-space: nowrap;
     }
-    .btn-primary { background: var(--blue); color: #fff; width: 100%; }
-    .btn-primary:hover { background: #1e6fd4; transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: var(--blue-hover); transform: translateY(-1px); }
     .btn-danger { background: rgba(255,59,92,0.15); color: var(--accent); border: 1px solid rgba(255,59,92,0.3); }
-    .btn-danger:hover { background: var(--accent); color: #fff; }
+    .btn-danger:hover:not(:disabled) { background: var(--accent); color: #fff; }
     .btn-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
-    .btn-green:hover { background: var(--green); color: #fff; }
-    .btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+    .btn-green:hover:not(:disabled) { background: var(--green); color: #fff; }
+    .btn-outline { background: var(--surface2); border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover:not(:disabled) { background: var(--surface3); border-color: rgba(255,255,255,0.2); }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; }
 
     /* ── App Layout ───────────────────────────────── */
     #app { display: none; flex-direction: column; min-height: 100vh; }
@@ -107,19 +115,21 @@
       z-index: 100;
     }
     .topbar-brand { display: flex; align-items: center; gap: 12px; }
-    .topbar-brand span { font-size: 1.1rem; font-weight: 800; }
+    .topbar-brand span { font-size: 1.25rem; font-weight: 800; }
     .topbar-brand small { color: var(--muted); font-size: 0.75rem; font-weight: 400; }
     .badge {
       display: inline-flex;
       align-items: center;
+      gap: 6px;
       padding: 4px 10px;
       border-radius: 999px;
       font-size: 0.75rem;
       font-weight: 700;
     }
     .badge-blue { background: rgba(43,125,233,0.15); color: var(--blue); border: 1px solid rgba(43,125,233,0.2); }
-    .badge-green { background: rgba(16,185,129,0.15); color: var(--green); }
-    .badge-amber { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .badge-green { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+    .badge-amber { background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); }
+    .badge-gray { background: rgba(136,153,170,0.15); color: var(--muted); border: 1px solid rgba(136,153,170,0.2); }
 
     /* Main */
     .main { display: flex; flex: 1; }
@@ -138,27 +148,136 @@
       padding: 16px;
       margin-bottom: 12px;
     }
-    .stat-card .val { font-size: 2rem; font-weight: 800; line-height: 1; }
-    .stat-card .lbl { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    .stat-card .val { font-size: 1.75rem; font-weight: 800; line-height: 1; }
+    .stat-card .lbl { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
 
-    .content { flex: 1; padding: 32px; overflow: auto; }
+    .content { flex: 1; padding: 28px 32px; overflow: auto; }
 
-    /* Add Product Panel */
+    /* Nav Tabs */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      color: var(--text);
+      background: var(--surface2);
+    }
+    .tab-btn.active {
+      color: #fff;
+      background: var(--surface2);
+      border-color: rgba(43,125,233,0.4);
+      box-shadow: 0 0 15px rgba(43,125,233,0.15);
+    }
+    .tab-badge {
+      background: rgba(255,255,255,0.1);
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Panel */
     .panel {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 28px;
+      padding: 24px;
+      margin-bottom: 24px;
     }
     .panel-title {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 10px;
     }
+
+    /* Dropzone */
+    .dropzone {
+      border: 2px dashed rgba(43, 125, 233, 0.4);
+      background: rgba(43, 125, 233, 0.03);
+      border-radius: 16px;
+      padding: 36px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--blue);
+      background: rgba(43, 125, 233, 0.08);
+      transform: translateY(-1px);
+    }
+    .dropzone-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .dropzone h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .dropzone p { color: var(--muted); font-size: 0.85rem; }
+
+    /* Batch toolbar */
+    .batch-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .batch-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Filter pills */
+    .filter-pills { display: flex; gap: 6px; align-items: center; }
+    .pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pill:hover { color: var(--text); }
+    .pill.active {
+      background: rgba(43,125,233,0.15);
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    /* Form Grid */
     .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -170,12 +289,12 @@
       display: flex;
       gap: 12px;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
     .search-bar .input { flex: 1; margin-bottom: 0; }
 
     /* Table */
-    .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
     table { width: 100%; border-collapse: collapse; }
     th {
       background: var(--surface2);
@@ -219,11 +338,12 @@
       transform: translateY(80px);
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      max-width: 340px;
+      max-width: 380px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     #toast.show { transform: translateY(0); opacity: 1; }
-    #toast.success { border-color: rgba(16,185,129,0.4); color: var(--green); }
-    #toast.error { border-color: rgba(255,59,92,0.4); color: var(--accent); }
+    #toast.success { border-color: rgba(16,185,129,0.5); color: var(--green); }
+    #toast.error { border-color: rgba(255,59,92,0.5); color: var(--accent); }
 
     /* Confirm modal */
     .modal-overlay {
@@ -233,6 +353,7 @@
       align-items: center;
       justify-content: center;
       z-index: 200;
+      backdrop-filter: blur(4px);
     }
     .modal-overlay.open { display: flex; }
     .modal-box {
@@ -240,12 +361,12 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 36px;
-      max-width: 400px;
+      max-width: 440px;
       width: 90%;
       text-align: center;
     }
-    .modal-box h3 { font-size: 1.2rem; margin-bottom: 10px; }
-    .modal-box p { color: var(--muted); margin-bottom: 28px; font-size: 0.9rem; }
+    .modal-box h3 { font-size: 1.25rem; margin-bottom: 10px; }
+    .modal-box p { color: var(--muted); margin-bottom: 24px; font-size: 0.9rem; line-height: 1.5; }
     .modal-actions { display: flex; gap: 12px; justify-content: center; }
 
     /* Regenerate */
@@ -253,7 +374,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 20px;
+      padding: 9px 18px;
       background: linear-gradient(135deg, rgba(43,125,233,0.2), rgba(16,185,129,0.2));
       border: 1px solid rgba(43,125,233,0.3);
       color: var(--blue);
@@ -273,7 +394,7 @@
     .empty-state { text-align: center; padding: 48px; color: var(--muted); }
     .empty-state div { font-size: 3rem; margin-bottom: 12px; }
 
-    .pagination { display: flex; align-items: center; gap: 8px; margin-top: 20px; justify-content: flex-end; }
+    .pagination { display: flex; align-items: center; gap: 8px; margin-top: 16px; justify-content: flex-end; }
     .page-btn {
       padding: 6px 14px;
       border-radius: 8px;
@@ -295,9 +416,9 @@
   <div class="login-card">
     <div class="login-logo">⚡</div>
     <h1>HiPower Admin</h1>
-    <p>Product Management Dashboard</p>
-    <input id="password-input" type="password" class="input" placeholder="Enter admin password" />
-    <button class="btn btn-primary" onclick="login()">Sign In</button>
+    <p>Product & Catalogue Management Portal</p>
+    <input id="password-input" type="password" class="input" placeholder="Enter admin password (default: hipower2025)" />
+    <button class="btn btn-primary" onclick="login()" style="width:100%;">Sign In</button>
     <p id="login-error" style="color:#FF3B5C; margin-top:12px; font-size:0.85rem; display:none;">Incorrect password. Try again.</p>
   </div>
 </div>
@@ -311,16 +432,19 @@
       <span>⚡</span>
       <div>
         <span>HiPower Admin</span><br/>
-        <small>Product Management</small>
+        <small>Catalogue Management Portal</small>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:12px;">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
       <span class="badge badge-blue" id="product-count-badge">— products</span>
-      <button class="regen-btn" id="regen-btn" onclick="regenerate()">
+      <button class="btn btn-outline btn-sm" onclick="exportCatalogToExcel()" title="Download current live catalog as Excel">
+        📥 Export Excel
+      </button>
+      <button class="regen-btn" id="regen-btn" onclick="regenerate()" title="Regenerate static HTML pages for all products">
         <svg id="regen-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
         Regenerate Pages
       </button>
-      <button class="btn btn-sm" onclick="logout()" style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);">Sign Out</button>
+      <button class="btn btn-outline btn-sm" onclick="logout()" style="color:var(--muted);">Sign Out</button>
     </div>
   </div>
 
@@ -328,132 +452,235 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <h3>Overview</h3>
+      <h3>Website Overview</h3>
       <div class="stat-card">
         <div class="val" id="stat-total" style="color:var(--blue)">—</div>
-        <div class="lbl">Total Products</div>
+        <div class="lbl">Active Products on Website</div>
       </div>
       <div class="stat-card">
         <div class="val" id="stat-filtered" style="color:var(--green)">—</div>
-        <div class="lbl">Showing</div>
+        <div class="lbl">Filtered in View</div>
       </div>
 
-      <h3 style="margin-top:28px;">Categories</h3>
+      <h3 style="margin-top:28px;">Product Categories</h3>
       <div id="category-list" style="display:flex;flex-direction:column;gap:6px;"></div>
     </div>
 
-    <!-- Content -->
+    <!-- Content Area -->
     <div class="content">
 
-      <!-- Add Product Panel -->
-      <div class="panel">
-        <div class="panel-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          Add New Product
-        </div>
-        <div class="form-grid">
-          <div class="form-group" style="grid-column:1/-1;">
-            <label>Etilize Product ID *</label>
-            <input id="add-id" type="text" class="input" placeholder="e.g. 1080992442" style="font-family:var(--mono);" />
-          </div>
-          <div class="form-group" style="grid-column:1/-1;">
-            <label>Product Name *</label>
-            <input id="add-name" type="text" class="input" placeholder="e.g. Vertiv Liebert GXE UPS 1000VA..." />
-          </div>
-          <div class="form-group">
-            <label>Part Number (MPN)</label>
-            <input id="add-mpn" type="text" class="input" placeholder="e.g. GXE3-1000IRT2UXL" />
-          </div>
-          <div class="form-group">
-            <label>Brand</label>
-            <select id="add-brand" class="input">
-              <option value="Liebert">Liebert</option>
-              <option value="AVOCENT">AVOCENT</option>
-              <option value="VERTIV">VERTIV</option>
-              <option value="Geist">Geist</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Manufacturer</label>
-            <input id="add-manufacturer" type="text" class="input" placeholder="Vertiv" value="Vertiv" />
-          </div>
-          <div class="form-group">
-            <label>Category</label>
-            <select id="add-category" class="input">
-              <option value="General Purpose UPS">General Purpose UPS</option>
-              <option value="Industrial UPS">Industrial UPS</option>
-              <option value="PDUs">PDUs</option>
-              <option value="Cooling Systems">Cooling Systems</option>
-              <option value="KVM Switchboxes">KVM Switchboxes</option>
-              <option value="Rackmount LCDs">Rackmount LCDs</option>
-              <option value="Panels">Panels</option>
-              <option value="UPS Batteries">UPS Batteries</option>
-              <option value="Poles &amp; Handles">Poles &amp; Handles</option>
-              <option value="Rack Equipment">Rack Equipment</option>
-              <option value="Infrastructure Management Equipment">Infrastructure Management Equipment</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Product Type</label>
-            <input id="add-producttype" type="text" class="input" placeholder="e.g. Double Conversion Online UPS" />
-          </div>
-        </div>
-        <div class="form-group" style="margin-bottom:16px;">
-          <label>Marketing Description</label>
-          <input id="add-marketing" type="text" class="input" placeholder="Brief product description..." />
-        </div>
-        <button class="btn btn-green" onclick="addProduct()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add Product
+      <!-- Navigation Tabs -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" id="tab-btn-excel" onclick="switchTab('excel')">
+          <span>📊 Excel Upload & Sync</span>
+          <span class="tab-badge" id="excel-tab-badge">0</span>
         </button>
-        <span id="add-status" style="margin-left:12px;font-size:0.85rem;"></span>
+        <button class="tab-btn" id="tab-btn-catalog" onclick="switchTab('catalog')">
+          <span>📦 Website Catalogue</span>
+          <span class="tab-badge" id="catalog-tab-badge">—</span>
+        </button>
+        <button class="tab-btn" id="tab-btn-single" onclick="switchTab('single')">
+          <span>➕ Add Single Product</span>
+        </button>
       </div>
 
-      <!-- Product Table -->
-      <div class="panel" style="padding:0; overflow:hidden;">
-        <div style="padding:20px 24px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-          <div class="panel-title" style="margin:0; flex:1; min-width:200px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-            Product Catalogue
+      <!-- ════════ TAB 1: EXCEL MANAGER ════════ -->
+      <div class="tab-content active" id="tab-excel">
+
+        <!-- Upload Box Panel -->
+        <div class="panel">
+          <div class="panel-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload Product Spreadsheet (.xlsx, .xls, .csv)
           </div>
-          <input id="search-input" type="text" class="input" placeholder="🔍  Search by name, MPN, ID, category…" style="max-width:320px;margin:0;" oninput="filterProducts()" />
-          <select id="cat-filter" class="input" style="max-width:200px;margin:0;" onchange="filterProducts()">
-            <option value="">All Categories</option>
-            <option value="General Purpose UPS">General Purpose UPS</option>
-            <option value="Industrial UPS">Industrial UPS</option>
-            <option value="PDUs">PDUs</option>
-            <option value="Cooling Systems">Cooling Systems</option>
-            <option value="KVM Switchboxes">KVM Switchboxes</option>
-            <option value="Rackmount LCDs">Rackmount LCDs</option>
-            <option value="Panels">Panels</option>
-            <option value="UPS Batteries">UPS Batteries</option>
-            <option value="Poles &amp; Handles">Poles &amp; Handles</option>
-            <option value="Rack Equipment">Rack Equipment</option>
-            <option value="Infrastructure Management Equipment">Infrastructure Management Equipment</option>
-          </select>
+
+          <div class="dropzone" id="dropzone" onclick="document.getElementById('excel-file-input').click()">
+            <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" style="display:none;" onchange="handleExcelFile(this.files[0])" />
+            <div class="dropzone-icon">📑</div>
+            <h3>Drop your Excel spreadsheet here, or <span style="color:var(--blue);text-decoration:underline;">Browse</span></h3>
+            <p>Supports Etilize Syndication sheets or any standard Excel with Product ID, Name, MPN, Brand, Category</p>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:12px;">
+            <div id="excel-file-info" style="font-size:0.875rem;color:var(--muted);">No spreadsheet loaded yet.</div>
+            <button class="btn btn-outline btn-sm" onclick="downloadSampleTemplate()">
+              📄 Download Sample Excel Template
+            </button>
+          </div>
         </div>
 
-        <div class="table-wrap" style="border:none;border-radius:0;">
-          <table id="products-table">
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Product</th>
-                <th>Part No.</th>
-                <th>Etilize ID</th>
-                <th>Brand</th>
-                <th>Category</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="products-tbody">
-              <tr><td colspan="7" class="empty-state"><div>⏳</div>Loading products…</td></tr>
-            </tbody>
-          </table>
+        <!-- Excel Results & Reconciliation Section -->
+        <div id="excel-results-panel" class="panel" style="display:none; padding:0; overflow:hidden;">
+
+          <!-- Header summary strip -->
+          <div style="padding:20px 24px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+            <div>
+              <h3 style="font-size:1.1rem;font-weight:700;" id="excel-summary-title">Spreadsheet Products</h3>
+              <p style="font-size:0.8rem;color:var(--muted);margin-top:4px;" id="excel-summary-sub"></p>
+            </div>
+            
+            <div class="filter-pills">
+              <button class="pill active" id="excel-filter-all" onclick="filterExcelView('all')">All (<span id="count-excel-all">0</span>)</button>
+              <button class="pill" id="excel-filter-new" onclick="filterExcelView('new')">🟢 New to Website (<span id="count-excel-new">0</span>)</button>
+              <button class="pill" id="excel-filter-existing" onclick="filterExcelView('existing')">⚪ Active on Website (<span id="count-excel-existing">0</span>)</button>
+            </div>
+          </div>
+
+          <!-- Toolbar for batch actions and search -->
+          <div style="padding:16px 24px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+            <div class="batch-actions">
+              <button class="btn btn-green btn-sm" onclick="addSelectedFromExcel()">
+                ➕ Add Selected to Website
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="addAllNewFromExcel()">
+                🚀 Add All New (<span id="btn-count-new">0</span>)
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="deleteSelectedFromExcel()">
+                🗑️ Remove Selected from Website
+              </button>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input id="excel-search-input" type="text" class="input" placeholder="🔍 Search in spreadsheet…" style="margin:0;max-width:260px;" oninput="applyExcelFilterAndSearch()" />
+            </div>
+          </div>
+
+          <!-- Excel Table -->
+          <div class="table-wrap" style="border:none;border-radius:0;">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:40px;text-align:center;">
+                    <input type="checkbox" id="excel-select-all" onchange="toggleSelectAllExcel(this.checked)" />
+                  </th>
+                  <th>Image</th>
+                  <th>Product Details</th>
+                  <th>Part No. (MPN)</th>
+                  <th>Product ID</th>
+                  <th>Category</th>
+                  <th>Website Status</th>
+                  <th style="text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="excel-tbody">
+                <!-- Rows injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="padding:16px 24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+            <div id="excel-pagination-info" style="font-size:0.8rem;color:var(--muted);"></div>
+            <div class="pagination" id="excel-pagination"></div>
+          </div>
+
         </div>
 
-        <div style="padding:16px 24px; border-top:1px solid var(--border);">
-          <div class="pagination" id="pagination"></div>
+      </div>
+
+      <!-- ════════ TAB 2: LIVE WEBSITE CATALOGUE ════════ -->
+      <div class="tab-content" id="tab-catalog">
+        <div class="panel" style="padding:0; overflow:hidden;">
+          <div style="padding:20px 24px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <div class="panel-title" style="margin:0; flex:1; min-width:200px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              Active Website Catalogue
+            </div>
+            <input id="search-input" type="text" class="input" placeholder="🔍  Search by name, MPN, ID, category…" style="max-width:320px;margin:0;" oninput="filterProducts()" />
+            <select id="cat-filter" class="input" style="max-width:200px;margin:0;" onchange="filterProducts()">
+              <option value="">All Categories</option>
+            </select>
+          </div>
+
+          <div class="table-wrap" style="border:none;border-radius:0;">
+            <table id="products-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Product</th>
+                  <th>Part No.</th>
+                  <th>Etilize ID</th>
+                  <th>Brand</th>
+                  <th>Category</th>
+                  <th style="text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="products-tbody">
+                <tr><td colspan="7" class="empty-state"><div>⏳</div>Loading catalogue…</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="padding:16px 24px; border-top:1px solid var(--border);">
+            <div class="pagination" id="pagination"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════ TAB 3: ADD SINGLE PRODUCT ════════ -->
+      <div class="tab-content" id="tab-single">
+        <div class="panel">
+          <div class="panel-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Add Single Product to Website
+          </div>
+          <div class="form-grid">
+            <div class="form-group" style="grid-column:1/-1;">
+              <label>Product / Etilize ID *</label>
+              <input id="add-id" type="text" class="input" placeholder="e.g. 1080992442" style="font-family:var(--mono);" />
+            </div>
+            <div class="form-group" style="grid-column:1/-1;">
+              <label>Product Name *</label>
+              <input id="add-name" type="text" class="input" placeholder="e.g. Vertiv Liebert GXE UPS 1000VA..." />
+            </div>
+            <div class="form-group">
+              <label>Part Number (MPN)</label>
+              <input id="add-mpn" type="text" class="input" placeholder="e.g. GXE3-1000IRT2UXL" />
+            </div>
+            <div class="form-group">
+              <label>Brand</label>
+              <select id="add-brand" class="input">
+                <option value="Liebert">Liebert</option>
+                <option value="AVOCENT">AVOCENT</option>
+                <option value="VERTIV">VERTIV</option>
+                <option value="Geist">Geist</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Manufacturer</label>
+              <input id="add-manufacturer" type="text" class="input" placeholder="Vertiv" value="Vertiv" />
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="add-category" class="input">
+                <option value="General Purpose UPS">General Purpose UPS</option>
+                <option value="Industrial UPS">Industrial UPS</option>
+                <option value="PDUs">PDUs</option>
+                <option value="Cooling Systems">Cooling Systems</option>
+                <option value="KVM Switchboxes">KVM Switchboxes</option>
+                <option value="Rackmount LCDs">Rackmount LCDs</option>
+                <option value="Panels">Panels</option>
+                <option value="UPS Batteries">UPS Batteries</option>
+                <option value="Poles &amp; Handles">Poles &amp; Handles</option>
+                <option value="Rack Equipment">Rack Equipment</option>
+                <option value="Infrastructure Management Equipment">Infrastructure Management Equipment</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Product Type</label>
+              <input id="add-producttype" type="text" class="input" placeholder="e.g. Double Conversion Online UPS" />
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Marketing Description</label>
+            <input id="add-marketing" type="text" class="input" placeholder="Brief product marketing description..." />
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <button class="btn btn-green" onclick="addProduct()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Product
+            </button>
+            <span id="add-status" style="font-size:0.85rem;"></span>
+          </div>
         </div>
       </div>
 
@@ -465,11 +692,11 @@
 <div class="modal-overlay" id="confirm-modal">
   <div class="modal-box">
     <div style="font-size:2.5rem;margin-bottom:16px;">🗑️</div>
-    <h3>Delete Product?</h3>
-    <p id="confirm-text">This will remove the product from products-data.js and delete its generated page. This cannot be undone.</p>
+    <h3 id="confirm-title">Remove from Website?</h3>
+    <p id="confirm-text">This will remove the product from the website catalogue and delete its generated page.</p>
     <div class="modal-actions">
-      <button class="btn btn-danger" onclick="confirmDelete()">Yes, Delete</button>
-      <button class="btn" onclick="closeModal()" style="background:var(--surface2);border:1px solid var(--border);">Cancel</button>
+      <button class="btn btn-danger" id="confirm-btn-delete" onclick="executePendingDelete()">Yes, Remove</button>
+      <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
     </div>
   </div>
 </div>
@@ -484,15 +711,49 @@
   let filteredProducts = [];
   let currentPage = 1;
   const PAGE_SIZE = 20;
-  let pendingDeleteId = null;
+  let pendingDeleteIds = [];
+
+  // Excel parsed state
+  let parsedExcelProducts = [];
+  let filteredExcelProducts = [];
+  let currentExcelPage = 1;
+  const EXCEL_PAGE_SIZE = 20;
+  let currentExcelFilter = 'all'; // 'all', 'new', 'existing'
+
+  // ── Drag & Drop Listeners ──────────────────────────
+  const dropzone = document.getElementById('dropzone');
+  ['dragenter', 'dragover'].forEach(name => {
+    dropzone.addEventListener(name, (e) => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('dragover'); });
+  });
+  ['dragleave', 'drop'].forEach(name => {
+    dropzone.addEventListener(name, (e) => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('dragover'); });
+  });
+  dropzone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files && files.length > 0) {
+      handleExcelFile(files[0]);
+    }
+  });
+
+  // ── Tab Navigation ────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(`tab-btn-${tab}`).classList.add('active');
+    document.getElementById(`tab-${tab}`).classList.add('active');
+  }
 
   // ── Auth ──────────────────────────────────────────
   function login() {
-    const pw = document.getElementById('password-input').value;
+    const pw = document.getElementById('password-input').value.trim();
+    if (!pw) { showToast('Please enter password', 'error'); return; }
+
     fetch(`${API}/api/products`, { headers: { 'x-admin-token': pw } })
       .then(r => {
         if (r.ok) {
           TOKEN = pw;
+          sessionStorage.setItem('hipower_admin_token', pw);
           document.getElementById('login-screen').style.display = 'none';
           document.getElementById('app').classList.add('visible');
           loadProducts();
@@ -500,11 +761,12 @@
           document.getElementById('login-error').style.display = 'block';
         }
       })
-      .catch(() => showToast('Cannot reach admin server. Is it running?', 'error'));
+      .catch(() => showToast('Cannot reach admin server. Is it running on port 3333?', 'error'));
   }
 
   function logout() {
     TOKEN = '';
+    sessionStorage.removeItem('hipower_admin_token');
     location.reload();
   }
 
@@ -512,27 +774,422 @@
     if (e.key === 'Enter') login();
   });
 
+  // Check saved session
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = sessionStorage.getItem('hipower_admin_token');
+    if (saved) {
+      document.getElementById('password-input').value = saved;
+      login();
+    }
+  });
+
   // ── Load Products ──────────────────────────────────
   function loadProducts() {
     fetch(`${API}/api/products`, { headers: { 'x-admin-token': TOKEN } })
       .then(r => r.json())
       .then(data => {
-        allProducts = data.products;
+        allProducts = data.products || [];
         filteredProducts = [...allProducts];
         document.getElementById('stat-total').textContent = data.count;
         document.getElementById('product-count-badge').textContent = `${data.count} products`;
+        document.getElementById('catalog-tab-badge').textContent = data.count;
         updateCategorySidebar();
         renderTable();
+        // If Excel already parsed, re-reconcile statuses
+        if (parsedExcelProducts.length > 0) {
+          reconcileExcelWithCatalogue();
+        }
       })
-      .catch(() => showToast('Failed to load products', 'error'));
+      .catch(() => showToast('Failed to load products from server', 'error'));
   }
 
-  // ── Filter ─────────────────────────────────────────
+  // ── Handle Excel Upload ────────────────────────────
+  function handleExcelFile(file) {
+    if (!file) return;
+    const infoEl = document.getElementById('excel-file-info');
+    infoEl.textContent = `⏳ Reading ${file.name} (${(file.size / 1024).toFixed(1)} KB)…`;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+
+        if (!rows || rows.length === 0) {
+          showToast('The spreadsheet is empty or could not be parsed', 'error');
+          infoEl.textContent = 'Uploaded file has no rows.';
+          return;
+        }
+
+        parsedExcelProducts = rows.map((r, idx) => parseExcelRow(r, idx)).filter(p => p.id && p.name);
+
+        if (parsedExcelProducts.length === 0) {
+          showToast('Could not find products with valid ID and Name. Check columns.', 'error');
+          infoEl.textContent = 'No valid products found in spreadsheet.';
+          return;
+        }
+
+        infoEl.innerHTML = `Loaded <strong>${file.name}</strong> (${parsedExcelProducts.length} products found)`;
+        document.getElementById('excel-tab-badge').textContent = parsedExcelProducts.length;
+        document.getElementById('excel-results-panel').style.display = 'block';
+
+        reconcileExcelWithCatalogue();
+        showToast(`Parsed ${parsedExcelProducts.length} products from Excel!`, 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Error parsing Excel: ' + err.message, 'error');
+        infoEl.textContent = 'Failed to parse Excel file.';
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  // ── Helper to map Excel Columns to Product Object ──
+  function parseExcelRow(r, idx) {
+    // Intelligent column extraction
+    const id = String(
+      r['Product Id'] || r['Product ID'] || r['ProductId'] || r['Etilize ID'] || 
+      r['ID'] || r['Id'] || r['id'] || ''
+    ).trim();
+
+    const mpn = String(
+      r['Manufacturer Part Number'] || r['Part Number'] || r['PartNumber'] || 
+      r['MPN'] || r['mpn'] || ''
+    ).trim();
+
+    const name = String(
+      r['Full Description'] || r['Short Description'] || r['Product Name'] || 
+      r['Name'] || r['Title'] || r['Description'] || ''
+    ).trim();
+
+    const brand = String(r['Brand Name'] || r['Brand'] || r['Manufacturer Name'] || 'Vertiv').trim();
+    const manufacturer = String(r['Manufacturer Name'] || r['Manufacturer'] || 'Vertiv').trim();
+    const category = String(r['Product Category'] || r['Category'] || r['Level_3_Category_Name'] || 'General Purpose UPS').trim();
+    const productType = String(r['Product Type'] || '').trim();
+    const marketing = String(r['Marketing Information'] || r['Marketing'] || r['Long Description'] || '').trim();
+
+    // Extract features if present in Etilize format
+    const features = [];
+    for (let i = 1; i <= 10; i++) {
+      const feat = r[`Product Features: Feature${i}`];
+      if (feat && String(feat).trim()) features.push(String(feat).trim());
+    }
+
+    // Extract image
+    const mainImg = r['Image:500'] || r['Image:300 / Large'] || r['Image'] || r['Image URL'] || `https://content.etilize.com/500/${id}.jpg`;
+    
+    // Images map
+    const images = {
+      '75': r['Image:75'] || `https://content.etilize.com/75/${id}.jpg`,
+      '160': r['Image:160 / Thumbnail'] || `https://content.etilize.com/160/${id}.jpg`,
+      '500': r['Image:500'] || `https://content.etilize.com/500/${id}.jpg`,
+      'Rear': r['Image:Rear'] || `https://content.etilize.com/Rear/${id}.jpg`,
+      'Right': r['Image:Right'] || `https://content.etilize.com/Right/${id}.jpg`
+    };
+
+    return {
+      _uid: `xl_${idx}_${id}`,
+      id,
+      mpn,
+      name,
+      fullDescription: r['Full Description'] || name,
+      longDesc: r['Long Description'] || '',
+      marketing,
+      productType,
+      brand,
+      manufacturer,
+      category,
+      categoryId: r['Category ID'] ? String(r['Category ID']) : '',
+      categoryTree: r['Category Tree'] || '',
+      level1Category: r['Level_1_Category_Name'] || 'Power Equipment',
+      level2Category: r['Level_2_Category_Name'] || 'UPS',
+      level3Category: r['Level_3_Category_Name'] || category,
+      keywords: r['Product Keywords'] || '',
+      unspsc: r['UNSPSC'] ? String(r['UNSPSC']) : '',
+      gtin: r['GTIN'] ? String(r['GTIN']) : '',
+      upc: r['UPC'] ? String(r['UPC']) : '',
+      ean: r['EAN'] ? String(r['EAN']) : '',
+      image: mainImg,
+      images,
+      features,
+      techSpecsHtml: r['Technical Specifications (HTML)'] || '',
+      techSpecsJson: {},
+      techSpecs: r['Technical Specifications (Line Separated)'] || '',
+      pdfBrochure: r['PDF:Manufacturer-Brochure'] || `https://content.etilize.com/Manufacturer-Brochure/${id}.pdf`,
+      pdfManual: r['PDF:User-Manual'] || `https://content.etilize.com/User-Manual/${id}.pdf`,
+      _selected: false,
+      _isOnWebsite: false
+    };
+  }
+
+  // ── Reconcile Excel with Website Catalogue ─────────
+  function reconcileExcelWithCatalogue() {
+    const existingIdMap = new Set(allProducts.map(p => String(p.id).trim()));
+
+    let newCount = 0;
+    let existingCount = 0;
+
+    parsedExcelProducts.forEach(item => {
+      item._isOnWebsite = existingIdMap.has(item.id);
+      if (item._isOnWebsite) existingCount++;
+      else newCount++;
+    });
+
+    document.getElementById('count-excel-all').textContent = parsedExcelProducts.length;
+    document.getElementById('count-excel-new').textContent = newCount;
+    document.getElementById('count-excel-existing').textContent = existingCount;
+    document.getElementById('btn-count-new').textContent = newCount;
+
+    document.getElementById('excel-summary-title').textContent = `${parsedExcelProducts.length} Products Found in Spreadsheet`;
+    document.getElementById('excel-summary-sub').textContent = `${newCount} can be added to website · ${existingCount} already active on website`;
+
+    applyExcelFilterAndSearch();
+  }
+
+  // ── Filter and Search within Excel ─────────────────
+  function filterExcelView(filterType) {
+    currentExcelFilter = filterType;
+    document.querySelectorAll('.filter-pills .pill').forEach(p => p.classList.remove('active'));
+    document.getElementById(`excel-filter-${filterType}`).classList.add('active');
+    currentExcelPage = 1;
+    applyExcelFilterAndSearch();
+  }
+
+  function applyExcelFilterAndSearch() {
+    const q = (document.getElementById('excel-search-input').value || '').toLowerCase().trim();
+
+    filteredExcelProducts = parsedExcelProducts.filter(item => {
+      // Status filter
+      if (currentExcelFilter === 'new' && item._isOnWebsite) return false;
+      if (currentExcelFilter === 'existing' && !item._isOnWebsite) return false;
+
+      // Query filter
+      if (q) {
+        const matchName = item.name.toLowerCase().includes(q);
+        const matchMpn = (item.mpn || '').toLowerCase().includes(q);
+        const matchId = item.id.includes(q);
+        const matchCat = (item.category || '').toLowerCase().includes(q);
+        const matchBrand = (item.brand || '').toLowerCase().includes(q);
+        return matchName || matchMpn || matchId || matchCat || matchBrand;
+      }
+      return true;
+    });
+
+    renderExcelTable();
+  }
+
+  // ── Render Excel Table ─────────────────────────────
+  function renderExcelTable() {
+    const tbody = document.getElementById('excel-tbody');
+    const start = (currentExcelPage - 1) * EXCEL_PAGE_SIZE;
+    const pageItems = filteredExcelProducts.slice(start, start + EXCEL_PAGE_SIZE);
+
+    if (pageItems.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><div>🔍</div>No products match current filter</td></tr>`;
+      renderExcelPagination();
+      return;
+    }
+
+    tbody.innerHTML = pageItems.map(p => `
+      <tr data-id="${p.id}">
+        <td style="text-align:center;">
+          <input type="checkbox" ${p._selected ? 'checked' : ''} onchange="toggleSelectExcelItem('${p.id}', this.checked)" />
+        </td>
+        <td>
+          <img class="product-img"
+            src="https://content.etilize.com/75/${p.id}.jpg"
+            onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 60 60%22><rect fill=%22%231a2336%22 width=%2260%22 height=%2260%22/><text x=%2230%22 y=%2236%22 font-size=%2222%22 text-anchor=%22middle%22 fill=%22%238899aa%22>📦</text></svg>'"
+            alt="" />
+        </td>
+        <td class="product-name">
+          <div>${p.name}</div>
+          <small>${p.brand} · ${p.productType || p.category}</small>
+        </td>
+        <td><span class="mono">${p.mpn || '—'}</span></td>
+        <td><span class="mono" style="color:var(--muted);">${p.id}</span></td>
+        <td><span style="font-size:0.8rem;color:var(--muted);">${p.category}</span></td>
+        <td>
+          ${p._isOnWebsite 
+            ? '<span class="badge badge-green">● Active on Website</span>' 
+            : '<span class="badge badge-gray">○ Not on Website</span>'}
+        </td>
+        <td style="text-align:right;">
+          ${p._isOnWebsite 
+            ? `<button class="btn btn-danger btn-sm" onclick="promptDelete('${p.id}', '${p.name.replace(/'/g,"\\'")}')">🗑️ Delete</button>`
+            : `<button class="btn btn-green btn-sm" onclick="addSingleFromExcel('${p.id}')">➕ Add to Site</button>`}
+        </td>
+      </tr>
+    `).join('');
+
+    renderExcelPagination();
+  }
+
+  function toggleSelectExcelItem(id, isChecked) {
+    const item = parsedExcelProducts.find(p => p.id === id);
+    if (item) item._selected = isChecked;
+  }
+
+  function toggleSelectAllExcel(isChecked) {
+    filteredExcelProducts.forEach(p => p._selected = isChecked);
+    renderExcelTable();
+  }
+
+  function renderExcelPagination() {
+    const total = Math.ceil(filteredExcelProducts.length / EXCEL_PAGE_SIZE);
+    const pg = document.getElementById('excel-pagination');
+    const info = document.getElementById('excel-pagination-info');
+
+    info.textContent = `Showing ${filteredExcelProducts.length} of ${parsedExcelProducts.length} spreadsheet products`;
+
+    if (total <= 1) { pg.innerHTML = ''; return; }
+    let html = `<button class="page-btn" onclick="goExcelPage(${currentExcelPage-1})" ${currentExcelPage===1?'disabled':''}>‹ Prev</button>`;
+    for (let i = 1; i <= total; i++) {
+      if (i === 1 || i === total || Math.abs(i - currentExcelPage) <= 2) {
+        html += `<button class="page-btn ${i===currentExcelPage?'active':''}" onclick="goExcelPage(${i})">${i}</button>`;
+      } else if (Math.abs(i - currentExcelPage) === 3) {
+        html += `<span style="color:var(--muted)">…</span>`;
+      }
+    }
+    html += `<button class="page-btn" onclick="goExcelPage(${currentExcelPage+1})" ${currentExcelPage===total?'disabled':''}>Next ›</button>`;
+    pg.innerHTML = html;
+  }
+
+  function goExcelPage(n) {
+    const total = Math.ceil(filteredExcelProducts.length / EXCEL_PAGE_SIZE);
+    if (n < 1 || n > total) return;
+    currentExcelPage = n;
+    renderExcelTable();
+  }
+
+  // ── Add Single Product from Excel ──────────────────
+  function addSingleFromExcel(id) {
+    const item = parsedExcelProducts.find(p => p.id === id);
+    if (!item) return;
+
+    showToast(`Adding "${item.name.substring(0,30)}…" to website…`);
+
+    fetch(`${API}/api/products`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': TOKEN },
+      body: JSON.stringify(item)
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) { showToast(data.error, 'error'); return; }
+      showToast(`✅ Added ${item.name.substring(0,30)}… to website! Click Regenerate to update live pages.`, 'success');
+      loadProducts();
+    })
+    .catch(() => showToast('Failed to add product to server', 'error'));
+  }
+
+  // ── Add Selected Products from Excel ───────────────
+  function addSelectedFromExcel() {
+    const selected = parsedExcelProducts.filter(p => p._selected && !p._isOnWebsite);
+    if (selected.length === 0) {
+      showToast('Select at least one new product (checkbox) to add', 'error');
+      return;
+    }
+    executeBatchAdd(selected);
+  }
+
+  // ── Add All New Products from Excel ────────────────
+  function addAllNewFromExcel() {
+    const newItems = parsedExcelProducts.filter(p => !p._isOnWebsite);
+    if (newItems.length === 0) {
+      showToast('All products in this spreadsheet are already active on the website!', 'success');
+      return;
+    }
+    if (!confirm(`Are you sure you want to add all ${newItems.length} new products to the website?`)) {
+      return;
+    }
+    executeBatchAdd(newItems);
+  }
+
+  function executeBatchAdd(items) {
+    showToast(`⏳ Uploading ${items.length} products to catalogue…`);
+
+    fetch(`${API}/api/products/batch`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': TOKEN },
+      body: JSON.stringify({ products: items })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) { showToast('Batch add failed: ' + data.error, 'error'); return; }
+      showToast(`🎉 Successfully added ${data.addedCount} products! (Total: ${data.total}). Remember to Regenerate Pages.`, 'success');
+      loadProducts();
+    })
+    .catch(() => showToast('Failed to batch add products', 'error'));
+  }
+
+  // ── Delete Selected Products from Excel ────────────
+  function deleteSelectedFromExcel() {
+    const selectedOnSite = parsedExcelProducts.filter(p => p._selected && p._isOnWebsite);
+    if (selectedOnSite.length === 0) {
+      showToast('Select at least one active product to delete from website', 'error');
+      return;
+    }
+
+    pendingDeleteIds = selectedOnSite.map(p => p.id);
+    document.getElementById('confirm-title').textContent = `Remove ${pendingDeleteIds.length} Products?`;
+    document.getElementById('confirm-text').textContent = `This will remove ${pendingDeleteIds.length} selected products from the website catalogue.`;
+    document.getElementById('confirm-modal').classList.add('open');
+  }
+
+  // ── Single & Batch Delete Execution ───────────────
+  function promptDelete(id, name) {
+    pendingDeleteIds = [id];
+    document.getElementById('confirm-title').textContent = 'Remove from Website?';
+    document.getElementById('confirm-text').textContent = `"${name}" will be removed from the catalogue and its page deleted.`;
+    document.getElementById('confirm-modal').classList.add('open');
+  }
+
+  function closeModal() {
+    pendingDeleteIds = [];
+    document.getElementById('confirm-modal').classList.remove('open');
+  }
+
+  function executePendingDelete() {
+    if (pendingDeleteIds.length === 0) return;
+    const ids = [...pendingDeleteIds];
+    closeModal();
+
+    if (ids.length === 1) {
+      // Single delete
+      fetch(`${API}/api/products/${ids[0]}`, { method: 'DELETE', headers: { 'x-admin-token': TOKEN } })
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) { showToast(data.error, 'error'); return; }
+          showToast(`🗑️ Removed product. ${data.remaining} products remain on website.`, 'success');
+          loadProducts();
+        })
+        .catch(() => showToast('Failed to delete product', 'error'));
+    } else {
+      // Batch delete
+      fetch(`${API}/api/products/batch-delete`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': TOKEN },
+        body: JSON.stringify({ ids })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.error) { showToast(data.error, 'error'); return; }
+        showToast(`🗑️ Removed ${data.removedCount} products. ${data.remaining} products remain on website.`, 'success');
+        loadProducts();
+      })
+      .catch(() => showToast('Failed to delete products', 'error'));
+    }
+  }
+
+  // ── Render Catalogue Table ─────────────────────────
   function filterProducts() {
-    const q = document.getElementById('search-input').value.toLowerCase();
+    const q = document.getElementById('search-input').value.toLowerCase().trim();
     const cat = document.getElementById('cat-filter').value;
     filteredProducts = allProducts.filter(p => {
-      const matchQ = !q || p.name.toLowerCase().includes(q) || p.mpn.toLowerCase().includes(q) || p.id.includes(q) || (p.category||'').toLowerCase().includes(q);
+      const matchQ = !q || p.name.toLowerCase().includes(q) || (p.mpn||'').toLowerCase().includes(q) || p.id.includes(q) || (p.category||'').toLowerCase().includes(q);
       const matchCat = !cat || p.category === cat;
       return matchQ && matchCat;
     });
@@ -540,7 +1197,6 @@
     renderTable();
   }
 
-  // ── Render Table ───────────────────────────────────
   function renderTable() {
     document.getElementById('stat-filtered').textContent = filteredProducts.length;
     const tbody = document.getElementById('products-tbody');
@@ -548,7 +1204,7 @@
     const page = filteredProducts.slice(start, start + PAGE_SIZE);
 
     if (page.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><div>📭</div>No products found</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><div>📭</div>No products found in catalogue</td></tr>`;
       renderPagination();
       return;
     }
@@ -558,20 +1214,20 @@
         <td>
           <img class="product-img"
             src="https://content.etilize.com/75/${p.id}.jpg"
-            onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 60 60%22><rect fill=%22%23f0f0f0%22 width=%2260%22 height=%2260%22/><text x=%2230%22 y=%2235%22 font-size=%2224%22 text-anchor=%22middle%22>📦</text></svg>'"
-            alt="${p.name}" />
+            onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 60 60%22><rect fill=%22%231a2336%22 width=%2260%22 height=%2260%22/><text x=%2230%22 y=%2236%22 font-size=%2222%22 text-anchor=%22middle%22 fill=%22%238899aa%22>📦</text></svg>'"
+            alt="" />
         </td>
         <td class="product-name">
-          <a href="http://localhost:5173/products/${p.id}/" target="_blank">${p.name}</a>
+          <a href="/products/${p.id}/" target="_blank">${p.name}</a>
           <small>${p.category || ''}</small>
         </td>
         <td><span class="mono">${p.mpn || '—'}</span></td>
         <td><span class="mono" style="color:var(--muted)">${p.id}</span></td>
         <td><span class="badge badge-blue">${p.brand || '—'}</span></td>
         <td><span style="font-size:0.8rem;color:var(--muted)">${p.category || '—'}</span></td>
-        <td>
+        <td style="text-align:right;">
           <button class="btn btn-danger btn-sm" onclick="promptDelete('${p.id}', '${p.name.replace(/'/g,"\\'")}')">
-            🗑 Delete
+            🗑️ Delete
           </button>
         </td>
       </tr>
@@ -604,25 +1260,38 @@
     document.querySelector('.content').scrollTop = 0;
   }
 
-  // ── Category Sidebar ───────────────────────────────
+  // ── Update Categories ──────────────────────────────
   function updateCategorySidebar() {
     const cats = {};
-    allProducts.forEach(p => { cats[p.category] = (cats[p.category]||0)+1; });
+    allProducts.forEach(p => { 
+      const c = p.category || 'Uncategorized';
+      cats[c] = (cats[c]||0)+1; 
+    });
+    
+    // Sidebar list
     const el = document.getElementById('category-list');
     el.innerHTML = Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([cat, cnt]) => `
       <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--surface2);border-radius:8px;cursor:pointer;font-size:0.8rem;" onclick="setCategory('${cat}')">
-        <span style="color:var(--text)">${cat}</span>
+        <span style="color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;">${cat}</span>
         <span class="badge badge-blue" style="padding:2px 8px;">${cnt}</span>
       </div>
+    `).join('');
+
+    // Cat filter dropdown
+    const select = document.getElementById('cat-filter');
+    const cur = select.value;
+    select.innerHTML = '<option value="">All Categories</option>' + Object.keys(cats).sort().map(c => `
+      <option value="${c}" ${c===cur?'selected':''}>${c} (${cats[c]})</option>
     `).join('');
   }
 
   function setCategory(cat) {
+    switchTab('catalog');
     document.getElementById('cat-filter').value = cat;
     filterProducts();
   }
 
-  // ── Add Product ────────────────────────────────────
+  // ── Add Single Product Manual ──────────────────────
   function addProduct() {
     const id = document.getElementById('add-id').value.trim();
     const name = document.getElementById('add-name').value.trim();
@@ -648,48 +1317,86 @@
     .then(r => r.json())
     .then(data => {
       if (data.error) { showToast(data.error, 'error'); status.textContent = ''; return; }
-      showToast(`✅ Product added! Total: ${data.total}`, 'success');
+      showToast(`✅ Product added! Total active: ${data.total}. Remember to Regenerate Pages.`, 'success');
       status.textContent = '';
-      ['add-id','add-name','add-mpn','add-marketing','add-producttype'].forEach(id => document.getElementById(id).value = '');
+      ['add-id','add-name','add-mpn','add-marketing','add-producttype'].forEach(i => document.getElementById(i).value = '');
       loadProducts();
+      switchTab('catalog');
     })
     .catch(() => { showToast('Failed to add product', 'error'); status.textContent = ''; });
   }
 
-  // ── Delete Product ─────────────────────────────────
-  function promptDelete(id, name) {
-    pendingDeleteId = id;
-    document.getElementById('confirm-text').textContent = `"${name}" will be removed from the catalogue and its page deleted.`;
-    document.getElementById('confirm-modal').classList.add('open');
+  // ── Export Website Catalog to Excel ────────────────
+  function exportCatalogToExcel() {
+    if (allProducts.length === 0) {
+      showToast('No products loaded to export', 'error');
+      return;
+    }
+    const exportData = allProducts.map(p => ({
+      'Product ID': p.id,
+      'Part Number': p.mpn || '',
+      'Product Name': p.name || '',
+      'Brand': p.brand || '',
+      'Category': p.category || '',
+      'Product Type': p.productType || '',
+      'Marketing Information': p.marketing || '',
+      'Image URL': p.image || `https://content.etilize.com/500/${p.id}.jpg`,
+      'Brochure PDF': p.pdfBrochure || '',
+      'Manual PDF': p.pdfManual || ''
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'HiPower Products');
+    XLSX.writeFile(workbook, `HiPower-Products-Catalog-${new Date().toISOString().slice(0,10)}.xlsx`);
+    showToast('📥 Downloaded current catalog as Excel!', 'success');
   }
 
-  function closeModal() {
-    pendingDeleteId = null;
-    document.getElementById('confirm-modal').classList.remove('open');
+  // ── Download Sample Excel Template ────────────────
+  function downloadSampleTemplate() {
+    const sampleData = [
+      {
+        'Product ID': '1080992442',
+        'Part Number': 'GXE3-1000IRT2UXL',
+        'Product Name': 'Vertiv Liebert GXE UPS 1000VA 230V Rack/Tower',
+        'Brand': 'Liebert',
+        'Manufacturer': 'Vertiv',
+        'Category': 'General Purpose UPS',
+        'Product Type': 'Double Conversion Online UPS',
+        'Marketing Information': 'Online double-conversion rack/tower UPS with high efficiency and unity power factor.',
+        'Product Features: Feature1': 'Online Double Conversion technology',
+        'Product Features: Feature2': 'Rack/Tower convertible form factor',
+        'Product Features: Feature3': 'High efficiency operation ECO mode up to 98%'
+      },
+      {
+        'Product ID': '1069484039',
+        'Part Number': '536106003004',
+        'Product Name': 'Vertiv Liebert ITON CX UPS 600VA 230V',
+        'Brand': 'Liebert',
+        'Manufacturer': 'Vertiv',
+        'Category': 'General Purpose UPS',
+        'Product Type': 'Line-interactive UPS',
+        'Marketing Information': 'Cost-effective line-interactive UPS with AVR for reliable desktop power backup.',
+        'Product Features: Feature1': 'Microprocessor control for high reliability',
+        'Product Features: Feature2': 'AVR voltage stabilization',
+        'Product Features: Feature3': 'Cold start emergency function'
+      }
+    ];
+
+    const worksheet = XLSX.utils.json_to_sheet(sampleData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Template');
+    XLSX.writeFile(workbook, 'HiPower-Product-Import-Template.xlsx');
+    showToast('📄 Downloaded sample import template!', 'success');
   }
 
-  function confirmDelete() {
-    if (!pendingDeleteId) return;
-    const id = pendingDeleteId;
-    closeModal();
-
-    fetch(`${API}/api/products/${id}`, { method: 'DELETE', headers: { 'x-admin-token': TOKEN } })
-      .then(r => r.json())
-      .then(data => {
-        if (data.error) { showToast(data.error, 'error'); return; }
-        showToast(`🗑️ Deleted product ${id}. ${data.remaining} products remain.`, 'success');
-        loadProducts();
-      })
-      .catch(() => showToast('Failed to delete product', 'error'));
-  }
-
-  // ── Regenerate Pages ───────────────────────────────
+  // ── Regenerate Product Pages ───────────────────────
   function regenerate() {
     const btn = document.getElementById('regen-btn');
     const icon = document.getElementById('regen-icon');
     btn.disabled = true;
     icon.classList.add('spin');
-    showToast('⚙️ Regenerating all product pages…', 'success');
+    showToast('⚙️ Regenerating all static product pages…', 'success');
 
     fetch(`${API}/api/regenerate`, { method: 'POST', headers: { 'x-admin-token': TOKEN } })
       .then(r => r.json())
@@ -702,13 +1409,13 @@
       .catch(() => { btn.disabled = false; icon.classList.remove('spin'); showToast('Regeneration failed', 'error'); });
   }
 
-  // ── Toast ─────────────────────────────────────────
+  // ── Toast Notification ─────────────────────────────
   function showToast(msg, type = 'success') {
     const t = document.getElementById('toast');
     t.textContent = msg;
     t.className = `show ${type}`;
     clearTimeout(t._timer);
-    t._timer = setTimeout(() => { t.className = ''; }, 3500);
+    t._timer = setTimeout(() => { t.className = ''; }, 4500);
   }
 
   // Close modal on overlay click

@@ -197,16 +197,18 @@ function generateProductHtml(product) {
   // Tech specs
   let techSpecsHtml = '';
   if (product.techSpecsHtml) {
+    const cleanTechSpecsHtml = product.techSpecsHtml.replace(/<tr>\s*<td>\s*Manufacturer Part Number\s*<\/td>[\s\S]*?<\/tr>/gi, '');
     techSpecsHtml = `
       <div class="modal-specs" style="margin-top: var(--space-lg);">
         <h4>Technical Specifications</h4>
         <div class="specs-html-content">
-          ${product.techSpecsHtml}
+          ${cleanTechSpecsHtml}
         </div>
       </div>
     `;
   } else if (product.techSpecs) {
-    const lines = product.techSpecs.split('\n').filter(l => l.trim());
+    const lines = product.techSpecs.split('\n')
+      .filter(l => l.trim() && !l.toLowerCase().includes('part number'));
     techSpecsHtml = `
       <div class="modal-specs" style="margin-top: var(--space-lg);">
         <h4>Technical Specifications</h4>
@@ -230,21 +232,21 @@ function generateProductHtml(product) {
   let documentsHtml = '';
   const docs = [];
   if (product.pdfBrochure) {
-    docs.push(`<a href="${escapeAttr(product.pdfBrochure)}" target="_blank" rel="noopener" class="modal-doc-link">
+    docs.push(`<a href="${escapeAttr(product.pdfBrochure)}" class="modal-doc-link" onclick="openDocPopup(event, this.href); return false;">
       <span class="modal-doc-icon">📄</span>
       <span>Product Brochure</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </a>`);
   }
   if (product.pdfManual) {
-    docs.push(`<a href="${escapeAttr(product.pdfManual)}" target="_blank" rel="noopener" class="modal-doc-link">
+    docs.push(`<a href="${escapeAttr(product.pdfManual)}" class="modal-doc-link" onclick="openDocPopup(event, this.href); return false;">
       <span class="modal-doc-icon">📘</span>
       <span>User Manual</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </a>`);
   }
   if (product.videoTour) {
-    docs.push(`<a href="${escapeAttr(product.videoTour)}" target="_blank" rel="noopener" class="modal-doc-link modal-doc-video">
+    docs.push(`<a href="${escapeAttr(product.videoTour)}" class="modal-doc-link modal-doc-video" onclick="openDocPopup(event, this.href); return false;">
       <span class="modal-doc-icon">🎬</span>
       <span>Product Video</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -340,10 +342,6 @@ function generateProductHtml(product) {
             <span class="modal-badge modal-badge-brand" style="border-color: ${brandColor}; color: ${brandColor};">${product.brand}</span>
           </div>
           <h2 class="modal-product-name" style="font-size: var(--fs-3xl); font-weight: 800; line-height: 1.25; margin-top: var(--space-xs);">${product.name || product.mpn}</h2>
-          <div class="modal-product-mpn" style="margin-bottom: var(--space-sm);">
-            <span class="mpn-label">Part Number:</span>
-            <span class="mpn-value">${product.mpn}</span>
-          </div>
           ${identifiersHtml}
           ${product.marketing ? `<div class="modal-product-desc" style="font-size: var(--fs-base); line-height: 1.6; color: var(--text-secondary);">${product.marketing}</div>` : ''}
           ${fullDescHtml}

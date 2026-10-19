@@ -1,9 +1,10 @@
-﻿/* ============================================
+/* ============================================
    HiPower — Product Catalog Module
    3-tier navigation: Landing → Subcategory → Product Grid
    ============================================ */
 
 import { products } from './products-summary.js';
+import { openDocPopup } from './main.js';
 
 // ---- Navigation State ----
 let currentView = 'landing';        // 'landing' | 'subcategory' | 'products'
@@ -486,7 +487,6 @@ function renderProducts() {
           <h3 class="product-card-title">${shortName}</h3>
           <p class="product-card-desc">${shortDesc}</p>
           <div class="product-card-meta">
-            <span class="product-card-mpn">${product.mpn}</span>
             <span class="product-card-type">${product.productType}</span>
           </div>
         </div>
@@ -676,16 +676,18 @@ function openProductModal(productId) {
   // Tech specs - use HTML version if available (richest format), fallback to line-separated
   let techSpecsHtml = '';
   if (product.techSpecsHtml) {
+    const cleanTechSpecsHtml = product.techSpecsHtml.replace(/<tr>\s*<td>\s*Manufacturer Part Number\s*<\/td>[\s\S]*?<\/tr>/gi, '');
     techSpecsHtml = `
       <div class="modal-specs">
         <h4>Technical Specifications</h4>
         <div class="specs-html-content">
-          ${product.techSpecsHtml}
+          ${cleanTechSpecsHtml}
         </div>
       </div>
     `;
   } else if (product.techSpecs) {
-    const lines = product.techSpecs.split('\n').filter(l => l.trim());
+    const lines = product.techSpecs.split('\n')
+      .filter(l => l.trim() && !l.toLowerCase().includes('part number'));
     techSpecsHtml = `
       <div class="modal-specs">
         <h4>Technical Specifications</h4>
@@ -709,21 +711,21 @@ function openProductModal(productId) {
   let documentsHtml = '';
   const docs = [];
   if (product.pdfBrochure) {
-    docs.push(`<a href="${product.pdfBrochure}" target="_blank" rel="noopener" class="modal-doc-link">
+    docs.push(`<a href="${product.pdfBrochure}" class="modal-doc-link" onclick="openDocPopup(event, this.href); return false;">
       <span class="modal-doc-icon">📄</span>
       <span>Product Brochure</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </a>`);
   }
   if (product.pdfManual) {
-    docs.push(`<a href="${product.pdfManual}" target="_blank" rel="noopener" class="modal-doc-link">
+    docs.push(`<a href="${product.pdfManual}" class="modal-doc-link" onclick="openDocPopup(event, this.href); return false;">
       <span class="modal-doc-icon">📘</span>
       <span>User Manual</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </a>`);
   }
   if (product.videoTour) {
-    docs.push(`<a href="${product.videoTour}" target="_blank" rel="noopener" class="modal-doc-link modal-doc-video">
+    docs.push(`<a href="${product.videoTour}" class="modal-doc-link modal-doc-video" onclick="openDocPopup(event, this.href); return false;">
       <span class="modal-doc-icon">🎬</span>
       <span>Product Video</span>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -772,10 +774,6 @@ function openProductModal(productId) {
           <span class="modal-badge modal-badge-brand" style="border-color: ${brandColor}; color: ${brandColor};">${product.brand}</span>
         </div>
         <h2 class="modal-product-name">${product.name || product.mpn}</h2>
-        <div class="modal-product-mpn">
-          <span class="mpn-label">Part Number:</span>
-          <span class="mpn-value">${product.mpn}</span>
-        </div>
         ${identifiersHtml}
         ${product.marketing ? `<div class="modal-product-desc">${product.marketing}</div>` : ''}
         ${fullDescHtml}

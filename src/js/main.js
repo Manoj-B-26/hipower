@@ -11,7 +11,48 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnimations();
   initActiveNav();
   initPreloader();
+  initDocPopups();
 });
+
+/**
+ * Open document or video links in a popup window rather than a new tab
+ */
+export function openDocPopup(e, url) {
+  if (e && e.preventDefault) {
+    e.preventDefault();
+  }
+  const targetUrl = url || (e && e.currentTarget && e.currentTarget.href);
+  if (!targetUrl || targetUrl === '#' || targetUrl.startsWith('javascript:')) return false;
+
+  const width = Math.min(1060, Math.round(window.screen.availWidth * 0.9));
+  const height = Math.min(820, Math.round(window.screen.availHeight * 0.9));
+  const left = Math.max(0, Math.round((window.screen.availWidth - width) / 2));
+  const top = Math.max(0, Math.round((window.screen.availHeight - height) / 2));
+
+  const popup = window.open(
+    targetUrl,
+    'HiPowerDocPopup',
+    `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes,status=no,toolbar=no,menubar=no,location=no`
+  );
+  if (popup && !popup.closed) {
+    popup.focus();
+  }
+  return false;
+}
+if (typeof window !== 'undefined') {
+  window.openDocPopup = openDocPopup;
+  window.openDocViewer = openDocPopup;
+}
+
+function initDocPopups() {
+  document.addEventListener('click', (e) => {
+    const docLink = e.target.closest('.modal-doc-link');
+    if (docLink && docLink.href && !docLink.href.startsWith('javascript:')) {
+      e.preventDefault();
+      openDocPopup(e, docLink.href);
+    }
+  });
+}
 
 function initPreloader() {
   const preloader = document.getElementById('preloader');
