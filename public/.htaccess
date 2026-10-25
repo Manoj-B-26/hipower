@@ -1,0 +1,6 @@
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^webmail/?$ https://sg2plzcpnl505476.prod.sin2.secureserver.net:2096/cpsess5339384186/3rdparty/roundcube/?_task=mail&_mbox=INBOX [R=302,L]
+</IfModule>

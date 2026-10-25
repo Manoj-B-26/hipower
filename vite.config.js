@@ -37,6 +37,8 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
         team: resolve(__dirname, 'team.html'),
         admin: resolve(__dirname, 'admin.html'),
+        webmail: resolve(__dirname, 'webmail/index.html'),
+        notFound: resolve(__dirname, '404.html'),
         ...getProductInputs(),
       },
     },

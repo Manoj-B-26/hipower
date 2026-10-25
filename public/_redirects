@@ -1,0 +1,3 @@
+/webmail    https://sg2plzcpnl505476.prod.sin2.secureserver.net:2096/cpsess5339384186/3rdparty/roundcube/?_task=mail&_mbox=INBOX    302!
+/webmail/*  https://sg2plzcpnl505476.prod.sin2.secureserver.net:2096/cpsess5339384186/3rdparty/roundcube/?_task=mail&_mbox=INBOX    302!
+/*          /404.html                                                                                                          404

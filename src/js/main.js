@@ -4,6 +4,7 @@
 
 import { initNavbar } from './navbar.js';
 import { initAnimations } from './animations.js';
+import { initEventPopup } from './event-popup.js';
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNav();
   initPreloader();
   initDocPopups();
+  initEventPopup();
 });
 
 /**
