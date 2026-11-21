@@ -42,17 +42,18 @@ export function initRegisterForm() {
     // Gather data
     const data = {
       timestamp: new Date().toISOString(),
-      first_name: form.first_name.value.trim(),
-      last_name: form.last_name.value.trim(),
-      email: form.email.value.trim(),
-      phone: form.phone.value.trim(),
-      job_title: form.job_title.value.trim(),
-      i_am_a: form.i_am_a.value,
-      company: form.company.value.trim(),
-      country: form.country.value,
-      industry: form.industry.value,
-      city: form.city.value.trim(),
-      comments: form.comments.value.trim()
+      first_name: form.first_name ? form.first_name.value.trim() : '',
+      last_name: form.last_name ? form.last_name.value.trim() : '',
+      email: form.email ? form.email.value.trim() : '',
+      phone: form.phone ? form.phone.value.trim() : '',
+      company: form.company ? form.company.value.trim() : '',
+      job_title: form.job_title ? form.job_title.value.trim() : '',
+      comments: form.comments ? form.comments.value.trim() : '',
+      // Backward compatibility if Apps Script still expects 12 columns:
+      i_am_a: '',
+      country: '',
+      industry: '',
+      city: ''
     };
 
     // Loading state

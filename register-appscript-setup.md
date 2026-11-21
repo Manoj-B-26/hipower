@@ -11,11 +11,11 @@ This guide walks you through connecting the registration form at `register.html`
 Your sheet:
 👉 https://docs.google.com/spreadsheets/d/1kuJRqCNTqMKLtXny4KxusXzR7jSsliYJu6F7gx9u8Oc/edit?gid=0#gid=0
 
-Make sure the **first row** (Row 1) has these exact column headers (A1 to L1):
+Make sure the **first row** (Row 1) has these column headers (A1 to H1):
 
-| A | B | C | D | E | F | G | H | I | J | K | L |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| Timestamp | First Name | Last Name | Work Mail Address | Phone Number | Job Title | I am a | Company | Country | Industry | City | Comments |
+| A | B | C | D | E | F | G | H |
+|---|---|---|---|---|---|---|---|
+| Timestamp | First Name | Last Name | Work Mail Address | Phone Number | Company | Job Title | Comments |
 
 ---
 
@@ -39,19 +39,15 @@ function doPost(e) {
     // Format timestamp in IST
     const timestamp = Utilities.formatDate(new Date(), "Asia/Kolkata", "yyyy-MM-dd HH:mm:ss");
     
-    // Append row matching column order (A to L)
+    // Append row matching column order (A to H)
     sheet.appendRow([
       timestamp,
       data.first_name || '',
       data.last_name  || '',
       data.email      || '',
       data.phone      || '',
-      data.job_title  || '',
-      data.i_am_a     || '',
       data.company    || '',
-      data.country    || '',
-      data.industry   || '',
-      data.city       || '',
+      data.job_title  || '',
       data.comments   || ''
     ]);
     
@@ -66,6 +62,8 @@ function doPost(e) {
   }
 }
 ```
+
+> **Note**: If you still have the previous 12-column script running with columns A to L, it will continue to work without error because the form sends empty strings for `I am a`, `Country`, `Industry`, and `City`. Updating to the 8-column script above allows you to keep only columns A through H clean and compact.
 
 // Optional: test manually in the editor
 function testPost() {
