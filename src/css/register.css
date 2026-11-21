@@ -1,29 +1,30 @@
 /* ===== REGISTRATION PAGE SPECIFIC STYLES ===== */
 
-/* Compact padding so page fits in single desktop window */
+/* Compact padding so page fits in single desktop window while clearing the fixed navbar */
 .section-register-top {
-  padding-top: calc(var(--navbar-height, 75px) + 14px);
-  padding-bottom: 24px;
+  padding-top: calc(var(--navbar-height, 85px) + 35px);
+  padding-bottom: 36px;
 }
 
 @media (max-width: 900px) {
   .section-register-top {
-    padding-top: calc(var(--navbar-height, 70px) + 14px);
-    padding-bottom: 32px;
+    padding-top: calc(var(--navbar-height, 75px) + 25px);
+    padding-bottom: 36px;
   }
 }
 
 .register-layout {
   display: grid;
-  grid-template-columns: 1fr 1.18fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "flyer form"
     "details form";
   grid-template-rows: auto 1fr;
-  column-gap: 28px;
-  row-gap: 12px;
+  column-gap: 32px;
+  row-gap: 14px;
   align-items: start;
-  max-width: 1160px;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
