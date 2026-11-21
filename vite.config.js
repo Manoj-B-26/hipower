@@ -35,6 +35,7 @@ export default defineConfig({
         services: resolve(__dirname, 'services.html'),
         testimonials: resolve(__dirname, 'testimonials.html'),
         contact: resolve(__dirname, 'contact.html'),
+        register: resolve(__dirname, 'register.html'),
         team: resolve(__dirname, 'team.html'),
         admin: resolve(__dirname, 'admin.html'),
         webmail: resolve(__dirname, 'webmail/index.html'),
