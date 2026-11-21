@@ -23,405 +23,8 @@
   <link rel="icon" type="image/x-icon" href="/images/favicon/favicon.ico" />
   <link rel="icon" type="image/svg+xml" href="/images/favicon/favicon.svg" />
   <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon/favicon-96x96.png" />
-  <style>
-    /* ===== REGISTRATION PAGE SPECIFIC STYLES ===== */
-
-    /* Compact padding so page fits in single desktop window */
-    .section-register-top {
-      padding-top: calc(var(--navbar-height, 75px) + 14px);
-      padding-bottom: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .section-register-top {
-        padding-top: calc(var(--navbar-height, 70px) + 14px);
-        padding-bottom: 32px;
-      }
-    }
-
-    .register-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.18fr;
-      grid-template-areas:
-        "flyer form"
-        "details form";
-      grid-template-rows: auto 1fr;
-      column-gap: 28px;
-      row-gap: 12px;
-      align-items: start;
-      max-width: 1160px;
-      margin: 0 auto;
-    }
-
-    /* Event Flyer Image */
-    .event-flyer-wrap {
-      grid-area: flyer;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
-    }
-
-    .event-flyer-wrap img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-    }
-
-    /* Form Column */
-    .register-form-col {
-      grid-area: form;
-    }
-
-    /* Details Column */
-    .event-details-wrap {
-      grid-area: details;
-    }
-
-    .event-detail-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .event-detail-card {
-      background: var(--glass-bg-strong);
-      border: 1px solid var(--border-glass);
-      border-radius: 12px;
-      padding: 9px 12px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .event-detail-card .edc-icon {
-      font-size: 1.25rem;
-      margin-bottom: 0;
-      flex-shrink: 0;
-    }
-
-    .event-detail-card .edc-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: var(--fw-semibold);
-      margin-bottom: 1px;
-    }
-
-    .event-detail-card .edc-value {
-      font-size: 0.82rem;
-      font-weight: var(--fw-bold);
-      color: var(--text-primary);
-      line-height: 1.25;
-    }
-
-    .event-collab-strip {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--glass-bg-strong);
-      border: 1px solid var(--border-glass);
-      border-radius: 12px;
-      padding: 8px 14px;
-      margin-top: 10px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .event-collab-strip span {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: var(--fw-semibold);
-      white-space: nowrap;
-    }
-
-    .event-collab-strip img {
-      height: 22px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .event-rsvp-card {
-      background: var(--glass-bg-strong);
-      border: 1px solid var(--border-glass);
-      border-radius: 12px;
-      padding: 9px 14px;
-      margin-top: 10px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .event-rsvp-card h4 {
-      color: var(--purple);
-      margin-bottom: 5px;
-      font-size: 0.82rem;
-    }
-
-    .event-rsvp-list {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .event-rsvp-item p {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 1px;
-    }
-
-    .event-rsvp-item a {
-      color: var(--accent);
-      font-weight: var(--fw-semibold);
-      font-size: 0.82rem;
-    }
-
-    /* Registration Form Card — Compact & Balanced */
-    .register-form-card {
-      background: var(--glass-bg-strong);
-      border: 1px solid var(--border-glass);
-      border-radius: 20px;
-      padding: 20px 24px;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    }
-
-    .register-form-card .form-title {
-      font-size: 1.35rem;
-      font-weight: var(--fw-bold);
-      color: var(--text-primary);
-      margin-bottom: 2px;
-      letter-spacing: -0.02em;
-    }
-
-    .register-form-card .form-subtitle {
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      margin-bottom: 14px;
-      line-height: 1.4;
-    }
-
-    .form-group {
-      margin-bottom: 9px;
-    }
-
-    .form-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 9px;
-    }
-
-    .form-row .form-group {
-      flex: 1;
-      margin-bottom: 0;
-      min-width: 0;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.77rem;
-      font-weight: var(--fw-semibold);
-      color: var(--text-primary);
-      margin-bottom: 3px;
-    }
-
-    .form-input,
-    select.form-input {
-      padding: 7px 11px;
-      font-size: 0.84rem;
-      border-radius: 9px;
-      height: 36px;
-    }
-
-    .form-textarea {
-      padding: 7px 11px;
-      font-size: 0.84rem;
-      border-radius: 9px;
-      min-height: 48px;
-      resize: vertical;
-    }
-
-    #register-submit {
-      margin-top: 8px;
-      padding: 9px 18px;
-      font-size: 0.92rem;
-      border-radius: 11px;
-    }
-
-    .form-disclaimer {
-      font-size: 10.5px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 7px;
-      line-height: 1.35;
-    }
-
-    /* Purple accent for Vertiv branding */
-    .accent-purple {
-      color: var(--purple);
-    }
-
-    .btn-purple {
-      background: linear-gradient(135deg, #7c3aed, #5b21b6);
-      color: #fff;
-      border: none;
-      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
-      cursor: pointer;
-      font-weight: var(--fw-semibold);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-purple:hover {
-      background: linear-gradient(135deg, #6d28d9, #4c1d95);
-      box-shadow: 0 10px 28px rgba(124, 58, 237, 0.45);
-      transform: translateY(-1px);
-    }
-
-    /* Success State */
-    .register-success {
-      display: none;
-      text-align: center;
-      padding: var(--space-2xl) var(--space-lg);
-    }
-
-    .register-success.visible {
-      display: block;
-    }
-
-    .register-success .success-icon {
-      font-size: 3.5rem;
-      margin-bottom: var(--space-md);
-      display: block;
-    }
-
-    .register-success h3 {
-      font-size: var(--fs-xl);
-      color: var(--text-primary);
-      margin-bottom: var(--space-sm);
-    }
-
-    .register-success p {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      margin-bottom: var(--space-lg);
-    }
-
-    /* Loading state */
-    .btn-loading {
-      opacity: 0.75;
-      pointer-events: none;
-      cursor: not-allowed;
-    }
-
-    .form-error-msg {
-      display: none;
-      background: rgba(225, 45, 57, 0.08);
-      border: 1px solid rgba(225, 45, 57, 0.2);
-      border-radius: 9px;
-      padding: 8px 12px;
-      color: var(--accent);
-      font-size: 0.8rem;
-      margin-bottom: 10px;
-    }
-
-    .form-error-msg.visible {
-      display: block;
-    }
-
-    /* Required asterisk */
-    .form-label .req {
-      color: var(--accent);
-      margin-left: 2px;
-    }
-
-    /* ===== MOBILE OPTIMISATIONS ===== */
-    @media (max-width: 900px) {
-
-      /* Mobile ordering: Image -> Form -> Details */
-      .register-layout {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "flyer"
-          "form"
-          "details";
-        gap: var(--space-xl);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .register-form-card {
-        padding: var(--space-lg) var(--space-md);
-        border-radius: 18px;
-      }
-
-      .register-form-card .form-title {
-        font-size: var(--fs-xl);
-      }
-
-      /* Stack all form-row pairs to single column on mobile */
-      .form-row {
-        flex-direction: column;
-        gap: 0;
-        margin-bottom: 0;
-      }
-
-      .form-row .form-group {
-        width: 100% !important;
-        flex: unset !important;
-        min-width: unset !important;
-        margin-bottom: 9px;
-      }
-
-      .event-detail-cards {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-sm);
-      }
-
-      .event-detail-card {
-        padding: var(--space-md);
-        display: block;
-      }
-
-      .event-detail-card .edc-icon {
-        margin-bottom: var(--space-xs);
-      }
-
-      /* Keep collab strip logos on one row, no wrapping */
-      .event-collab-strip {
-        flex-wrap: nowrap;
-        gap: var(--space-md);
-        padding: var(--space-sm) var(--space-md);
-        align-items: center;
-      }
-
-      .event-collab-strip span {
-        font-size: 10px;
-        flex-shrink: 0;
-      }
-
-      .event-collab-strip img {
-        height: 22px;
-        flex-shrink: 0;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .event-detail-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .register-form-card {
-        padding: var(--space-md);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/src/css/register.css" />
+  <script type="module" src="/src/js/register.js"></script>
 </head>
 
 <body>
@@ -511,9 +114,8 @@
                       required autocomplete="given-name" />
                   </div>
                   <div class="form-group">
-                    <label for="last_name" class="form-label">Last Name <span class="req">*</span></label>
-                    <input type="text" id="last_name" name="last_name" class="form-input" placeholder="Last name"
-                      required autocomplete="family-name" />
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" class="form-input" placeholder="Last name" autocomplete="family-name" />
                   </div>
                 </div>
 
@@ -534,13 +136,13 @@
                 <!-- Row 3: Job Title + I am a -->
                 <div class="form-row">
                   <div class="form-group">
-                    <label for="job_title" class="form-label">Job Title <span class="req">*</span></label>
+                    <label for="job_title" class="form-label">Job Title</label>
                     <input type="text" id="job_title" name="job_title" class="form-input"
-                      placeholder="e.g. Data Center Manager" required autocomplete="organization-title" />
+                      placeholder="e.g. Data Center Manager" autocomplete="organization-title" />
                   </div>
                   <div class="form-group">
-                    <label for="i_am_a" class="form-label">I am a <span class="req">*</span></label>
-                    <select id="i_am_a" name="i_am_a" class="form-input" required style="cursor:pointer;">
+                    <label for="i_am_a" class="form-label">I am a</label>
+                    <select id="i_am_a" name="i_am_a" class="form-input" style="cursor:pointer;">
                       <option value="">Select...</option>
                       <option value="Contractor">Contractor</option>
                       <option value="Design Firm">Design Firm</option>
@@ -561,8 +163,8 @@
                       required autocomplete="organization" />
                   </div>
                   <div class="form-group">
-                    <label for="country" class="form-label">Country <span class="req">*</span></label>
-                    <select id="country" name="country" class="form-input" required style="cursor:pointer;">
+                    <label for="country" class="form-label">Country</label>
+                    <select id="country" name="country" class="form-input" style="cursor:pointer;">
                       <option value="">Select country...</option>
                       <option value="India">India</option>
                       <option value="United States">United States</option>
@@ -591,8 +193,8 @@
                 <!-- Row 5: Industry + City -->
                 <div class="form-row">
                   <div class="form-group">
-                    <label for="industry" class="form-label">Industry <span class="req">*</span></label>
-                    <select id="industry" name="industry" class="form-input" required style="cursor:pointer;">
+                    <label for="industry" class="form-label">Industry</label>
+                    <select id="industry" name="industry" class="form-input" style="cursor:pointer;">
                       <option value="">Select industry...</option>
                       <option value="Banking & Finance">Banking &amp; Finance</option>
                       <option value="Data Center / Colocation">Data Center / Colocation</option>
@@ -613,8 +215,8 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="city" class="form-label">City <span class="req">*</span></label>
-                    <input type="text" id="city" name="city" class="form-input" placeholder="e.g. Bengaluru" required
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" id="city" name="city" class="form-input" placeholder="e.g. Bengaluru"
                       autocomplete="address-level2" />
                   </div>
                 </div>
@@ -786,107 +388,6 @@
         d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
     </svg>
   </a>
-
-  <!-- Registration Form Script -->
-  <script>
-    (function () {
-      // ============================================================
-      // GOOGLE APPS SCRIPT WEB APP URL
-      // Replace the placeholder below with the deployed Apps Script URL
-      // after following the setup instructions in register-appscript-setup.md
-      // ============================================================
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPkXFzm1Is3y3BCGCAGAhIkI9TuuFoz__2IA-NkPwlsgoMEtIDwE7gpW6luJmJOtKUJg/exec';
-
-      const form = document.getElementById('register-form');
-      const submitBtn = document.getElementById('register-submit');
-      const successPanel = document.getElementById('register-success');
-      const formWrapper = document.getElementById('register-form-wrapper');
-      const errorMsg = document.getElementById('form-error-msg');
-
-      if (!form) return;
-
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        // Basic validation
-        const requiredFields = form.querySelectorAll('[required]');
-        let valid = true;
-        requiredFields.forEach(field => {
-          if (!field.value.trim()) {
-            field.style.borderColor = 'var(--accent)';
-            valid = false;
-          } else {
-            field.style.borderColor = '';
-          }
-        });
-
-        if (!valid) {
-          errorMsg.textContent = '⚠️ Please fill in all required fields.';
-          errorMsg.classList.add('visible');
-          return;
-        }
-
-        // Spam trap check
-        const honey = form.querySelector('[name="_honey"]');
-        if (honey && honey.value) return;
-
-        // Gather data
-        const data = {
-          timestamp: new Date().toISOString(),
-          first_name: form.first_name.value.trim(),
-          last_name: form.last_name.value.trim(),
-          email: form.email.value.trim(),
-          phone: form.phone.value.trim(),
-          job_title: form.job_title.value.trim(),
-          i_am_a: form.i_am_a.value,
-          company: form.company.value.trim(),
-          country: form.country.value,
-          industry: form.industry.value,
-          city: form.city.value.trim(),
-          comments: form.comments.value.trim()
-        };
-
-        // Loading state
-        submitBtn.classList.add('btn-loading');
-        submitBtn.innerHTML = '<span class="btn-icon">⏳</span> Submitting...';
-        errorMsg.classList.remove('visible');
-
-        try {
-          if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') {
-            // Demo mode: simulate success after 1 second
-            await new Promise(r => setTimeout(r, 1000));
-            showSuccess();
-            return;
-          }
-
-          const resp = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-
-          // no-cors means we can't read the response body,
-          // but if no network error was thrown, treat as success
-          showSuccess();
-
-        } catch (err) {
-          console.error('Registration error:', err);
-          submitBtn.classList.remove('btn-loading');
-          submitBtn.innerHTML = 'Register Now';
-          errorMsg.textContent = '⚠️ Something went wrong. Please try again or call us directly.';
-          errorMsg.classList.add('visible');
-        }
-      });
-
-      function showSuccess() {
-        formWrapper.style.display = 'none';
-        successPanel.classList.add('visible');
-        window.scrollTo({ top: successPanel.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
-      }
-    })();
-  </script>
-
 </body>
 
 </html>
